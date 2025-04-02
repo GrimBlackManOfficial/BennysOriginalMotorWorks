@@ -68,6 +68,13 @@
         .category-button:focus {
             outline: none;
         }
+        .category-section {
+            display: none;
+            margin-top: 20px;
+        }
+        .category-section.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -75,11 +82,11 @@
         <div>Benny's Original Motor Works</div>
         <nav>
             <ul>
-                <li><a href="#prihlaseni">Přihlášení</a></li>
-                <li><a href="#zajem-o-praci">Zájem o práci</a></li>
-                <li><a href="#zajem-o-spolupraci">Zájem o spolupráci</a></li>
-                <li><a href="#faktura">Evidence faktury</a></li>
-                <li><a href="#dochazka">Evidence docházky</a></li>
+                <li><a href="javascript:void(0)" onclick="toggleSection('prihlaseni')">Přihlášení</a></li>
+                <li><a href="javascript:void(0)" onclick="toggleSection('zajem-o-praci')">Zájem o práci</a></li>
+                <li><a href="javascript:void(0)" onclick="toggleSection('zajem-o-spolupraci')">Zájem o spolupráci</a></li>
+                <li><a href="javascript:void(0)" onclick="toggleSection('faktura')">Evidence faktury</a></li>
+                <li><a href="javascript:void(0)" onclick="toggleSection('dochazka')">Evidence docházky</a></li>
             </ul>
         </nav>
     </header>
@@ -88,14 +95,14 @@
         <h2>Vítejte v Benny's Original Motor Works</h2>
         <p>Vyberte jednu z následujících možností, kterou chcete prozkoumat:</p>
 
-        <button class="category-button" onclick="window.location.href='#prihlaseni'">Přihlášení</button>
-        <button class="category-button" onclick="window.location.href='#zajem-o-praci'">Zájem o práci</button>
-        <button class="category-button" onclick="window.location.href='#zajem-o-spolupraci'">Zájem o spolupráci</button>
-        <button class="category-button" onclick="window.location.href='#faktura'">Evidence faktury</button>
-        <button class="category-button" onclick="window.location.href='#dochazka'">Evidence docházky</button>
+        <button class="category-button" onclick="toggleSection('prihlaseni')">Přihlášení</button>
+        <button class="category-button" onclick="toggleSection('zajem-o-praci')">Zájem o práci</button>
+        <button class="category-button" onclick="toggleSection('zajem-o-spolupraci')">Zájem o spolupráci</button>
+        <button class="category-button" onclick="toggleSection('faktura')">Evidence faktury</button>
+        <button class="category-button" onclick="toggleSection('dochazka')">Evidence docházky</button>
     </section>
 
-    <section id="prihlaseni">
+    <section id="prihlaseni" class="category-section">
         <h2>Přihlášení zaměstnance</h2>
         <form>
             <label for="username">Jméno:</label>
@@ -106,23 +113,23 @@
         </form>
     </section>
 
-    <section id="zajem-o-praci">
+    <section id="zajem-o-praci" class="category-section">
         <h2>Zájem o práci</h2>
         <button onclick="openForm('prihlaska-prace')">Vyplnit přihlášku</button>
     </section>
 
-    <section id="zajem-o-spolupraci">
+    <section id="zajem-o-spolupraci" class="category-section">
         <h2>Zájem o spolupráci</h2>
         <button onclick="openForm('prihlaska-spoluprace')">Vyplnit žádost o spolupráci</button>
     </section>
 
-    <section id="faktura">
+    <section id="faktura" class="category-section">
         <h2>Evidence faktury</h2>
         <p>Zde můžete zadávat faktury za tuning.</p>
         <button>Vyplnit fakturu</button>
     </section>
 
-    <section id="dochazka">
+    <section id="dochazka" class="category-section">
         <h2>Evidence docházky</h2>
         <label for="employee">Vyberte zaměstnance:</label>
         <select id="employee">
@@ -139,12 +146,16 @@
 
     <script>
         let shiftStartTime = null;
+
+        // Funkce pro začátek směny
         function startShift() {
             if (!shiftStartTime) {
                 shiftStartTime = new Date();
                 document.getElementById("shiftStatus").innerText = "Směna začala v " + shiftStartTime.toLocaleTimeString();
             }
         }
+
+        // Funkce pro konec směny
         function endShift() {
             if (shiftStartTime) {
                 let shiftEndTime = new Date();
@@ -153,8 +164,22 @@
                 shiftStartTime = null;
             }
         }
+
+        // Funkce pro otevření formuláře
         function openForm(formType) {
             window.open(formType + '.html', '_blank');
+        }
+
+        // Funkce pro přepínání zobrazení sekcí
+        function toggleSection(sectionId) {
+            const sections = document.querySelectorAll('.category-section');
+            sections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.classList.toggle('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
         }
     </script>
 </body>
