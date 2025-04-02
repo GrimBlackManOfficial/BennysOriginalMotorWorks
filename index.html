@@ -15,6 +15,42 @@
             color: white;
         }
 
+        /* Stránka pro zadání hesla */
+        .password-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+        }
+
+        .password-screen input {
+            font-size: 1.2em;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background-color: #222;
+            color: white;
+            width: 200px;
+        }
+
+        .password-screen button {
+            background-color: #FF0000;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            font-size: 1.2em;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
         /* Loading Screen */
         .loading-screen {
             position: fixed;
@@ -166,8 +202,15 @@
 </head>
 <body>
 
+    <!-- Password Screen -->
+    <div class="password-screen" id="password-screen">
+        <h1 style="color: white;">Zadejte heslo pro přístup do systému</h1>
+        <input type="password" id="password" placeholder="Zadejte heslo" />
+        <button onclick="checkPassword()">Přihlásit se</button>
+    </div>
+
     <!-- Loading Screen -->
-    <div class="loading-screen" id="loading-screen">
+    <div class="loading-screen" id="loading-screen" style="display:none;">
         <div class="loading-text" id="loading-text">Připojování do systému...</div>
         <div class="progress-bar-container">
             <div class="progress-bar" id="progress-bar"></div>
@@ -175,7 +218,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="content" id="main-content">
+    <div class="content" id="main-content" style="display:none;">
         <div class="header">
             <h1>Bennys Original Motor Works</h1>
         </div>
@@ -242,44 +285,10 @@
     </div>
 
     <script>
-        // Funkce pro zobrazení sekce
-        function showSection(sectionId) {
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(function(section) {
-                section.style.display = 'none';
-            });
-            document.getElementById(sectionId).style.display = 'block';
-        }
-
-        // Funkce pro zahájení směny
-        function startShift() {
-            alert('Směna zahájena!');
-        }
-
-        // Funkce pro ukončení směny
-        function endShift() {
-            alert('Směna ukončena!');
-        }
-
-        // Loading animace
-        window.onload = function() {
-            let progress = 0;
-            let loadingTextArray = [
-                "Připojování do systému...",
-                "Získávání dat...",
-                "Potvrzení přístupu..."
-            ];
-            let currentTextIndex = 0;
-            let loadingInterval = setInterval(function() {
-                progress += 1;
-                document.getElementById('progress-bar').style.width = progress + '%';
-
-                // Změna textu v loading fázi
-                if (progress % 33 === 0 && currentTextIndex < loadingTextArray.length) {
-                    document.getElementById('loading-text').innerText = loadingTextArray[currentTextIndex];
-                    currentTextIndex++;
-                }
-
-                if (progress === 100) {
-                    clearInterval(loadingInterval);
-                    setTimeout(function
+        // Funkce pro kontrolu hesla
+        function checkPassword() {
+            var password = document.getElementById('password').value;
+            if (password === '1234') {
+                // Skrytí obrazovky pro zadání hesla
+                document.getElementById('password-screen').style.display = 'none';
+                // Spuštění
