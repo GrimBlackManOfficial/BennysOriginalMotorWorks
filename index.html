@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="style.css">
 
-<!DOCTYPE html><html lang="cs">
+<!DOCTYPE html>
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,127 +18,144 @@
         }
         header {
             background-color: #b71c1c;
-            padding: 20px;
+            padding: 20px 40px;
             font-size: 24px;
             font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         nav ul {
             list-style-type: none;
             padding: 0;
+            display: flex;
+            gap: 20px;
         }
         nav ul li {
             display: inline;
-            margin: 0 15px;
         }
         nav ul li a {
             color: white;
             text-decoration: none;
             font-size: 18px;
         }
-        section {
+        .main-content {
             margin: 40px auto;
-            padding: 20px;
+            padding: 30px;
             background-color: #333;
             border-radius: 10px;
             width: 80%;
             box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5);
         }
-        button {
+        .main-content h2 {
+            margin-bottom: 20px;
+        }
+        .category-button {
             background-color: #b71c1c;
             color: white;
             border: none;
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 15px 30px;
+            font-size: 20px;
             cursor: pointer;
             border-radius: 5px;
+            margin: 15px;
+            width: 60%;
             transition: 0.3s;
         }
-        button:hover {
+        .category-button:hover {
             background-color: #d32f2f;
         }
-        input, select {
-            padding: 10px;
-            margin: 10px;
-            border-radius: 5px;
-            border: none;
-            width: 80%;
-            font-size: 16px;
+        .category-button:focus {
+            outline: none;
         }
     </style>
 </head>
 <body>
     <header>
-        Benny's Original Motor Works
+        <div>Benny's Original Motor Works</div>
         <nav>
             <ul>
-                <li><a href="#zamestnanci">Zaměstnanci</a></li>
-                <li><a href="#dochazka">Docházka</a></li>
+                <li><a href="#prihlaseni">Přihlášení</a></li>
                 <li><a href="#zajem-o-praci">Zájem o práci</a></li>
                 <li><a href="#zajem-o-spolupraci">Zájem o spolupráci</a></li>
-                <li><a href="#prihlaseni">Přihlášení</a></li>
+                <li><a href="#faktura">Evidence faktury</a></li>
+                <li><a href="#dochazka">Evidence docházky</a></li>
             </ul>
         </nav>
-    </header><section id="zamestnanci">
-    <h2>Zaměstnanci</h2>
-    <p>Správa zaměstnanců a jejich aktivit.</p>
-</section>
+    </header>
 
-<section id="dochazka">
-    <h2>Docházka</h2>
-    <label for="employee">Vyberte zaměstnance:</label>
-    <select id="employee">
-        <option value="jobs">Jobs</option>
-        <option value="gustafsson">Gustafsson</option>
-        <option value="garcia">Garcia</option>
-        <option value="brown">Brown</option>
-        <option value="morgan">Morgan</option>
-    </select>
-    <button onclick="startShift()">Start směny</button>
-    <button onclick="endShift()">Konec směny</button>
-    <p id="shiftStatus">Směna neběží</p>
-</section>
+    <section class="main-content">
+        <h2>Vítejte v Benny's Original Motor Works</h2>
+        <p>Vyberte jednu z následujících možností, kterou chcete prozkoumat:</p>
 
-<section id="zajem-o-praci">
-    <h2>Zájem o práci</h2>
-    <button onclick="openForm('prihlaska-prace')">Vyplnit přihlášku</button>
-</section>
+        <button class="category-button" onclick="window.location.href='#prihlaseni'">Přihlášení</button>
+        <button class="category-button" onclick="window.location.href='#zajem-o-praci'">Zájem o práci</button>
+        <button class="category-button" onclick="window.location.href='#zajem-o-spolupraci'">Zájem o spolupráci</button>
+        <button class="category-button" onclick="window.location.href='#faktura'">Evidence faktury</button>
+        <button class="category-button" onclick="window.location.href='#dochazka'">Evidence docházky</button>
+    </section>
 
-<section id="zajem-o-spolupraci">
-    <h2>Zájem o spolupráci</h2>
-    <button onclick="openForm('prihlaska-spoluprace')">Vyplnit žádost o spolupráci</button>
-</section>
+    <section id="prihlaseni">
+        <h2>Přihlášení zaměstnance</h2>
+        <form>
+            <label for="username">Jméno:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Heslo:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Přihlásit se</button>
+        </form>
+    </section>
 
-<section id="prihlaseni">
-    <h2>Přihlášení zaměstnance</h2>
-    <form>
-        <label for="username">Jméno:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Heslo:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Přihlásit se</button>
-    </form>
-</section>
+    <section id="zajem-o-praci">
+        <h2>Zájem o práci</h2>
+        <button onclick="openForm('prihlaska-prace')">Vyplnit přihlášku</button>
+    </section>
 
-<script>
-    let shiftStartTime = null;
-    function startShift() {
-        if (!shiftStartTime) {
-            shiftStartTime = new Date();
-            document.getElementById("shiftStatus").innerText = "Směna začala v " + shiftStartTime.toLocaleTimeString();
+    <section id="zajem-o-spolupraci">
+        <h2>Zájem o spolupráci</h2>
+        <button onclick="openForm('prihlaska-spoluprace')">Vyplnit žádost o spolupráci</button>
+    </section>
+
+    <section id="faktura">
+        <h2>Evidence faktury</h2>
+        <p>Zde můžete zadávat faktury za tuning.</p>
+        <button>Vyplnit fakturu</button>
+    </section>
+
+    <section id="dochazka">
+        <h2>Evidence docházky</h2>
+        <label for="employee">Vyberte zaměstnance:</label>
+        <select id="employee">
+            <option value="jobs">Jobs</option>
+            <option value="gustafsson">Gustafsson</option>
+            <option value="garcia">Garcia</option>
+            <option value="brown">Brown</option>
+            <option value="morgan">Morgan</option>
+        </select>
+        <button onclick="startShift()">Start směny</button>
+        <button onclick="endShift()">Konec směny</button>
+        <p id="shiftStatus">Směna neběží</p>
+    </section>
+
+    <script>
+        let shiftStartTime = null;
+        function startShift() {
+            if (!shiftStartTime) {
+                shiftStartTime = new Date();
+                document.getElementById("shiftStatus").innerText = "Směna začala v " + shiftStartTime.toLocaleTimeString();
+            }
         }
-    }
-    function endShift() {
-        if (shiftStartTime) {
-            let shiftEndTime = new Date();
-            let duration = Math.round((shiftEndTime - shiftStartTime) / 1000 / 60); // v minutách
-            document.getElementById("shiftStatus").innerText = "Směna ukončena v " + shiftEndTime.toLocaleTimeString() + " (doba trvání: " + duration + " min)";
-            shiftStartTime = null;
+        function endShift() {
+            if (shiftStartTime) {
+                let shiftEndTime = new Date();
+                let duration = Math.round((shiftEndTime - shiftStartTime) / 1000 / 60); // v minutách
+                document.getElementById("shiftStatus").innerText = "Směna ukončena v " + shiftEndTime.toLocaleTimeString() + " (doba trvání: " + duration + " min)";
+                shiftStartTime = null;
+            }
         }
-    }
-    function openForm(formType) {
-        window.open(formType + '.html', '_blank');
-    }
-</script>
-
+        function openForm(formType) {
+            window.open(formType + '.html', '_blank');
+        }
+    </script>
 </body>
 </html>
