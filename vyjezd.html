@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Výjezd Odtahové Služby</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: block;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .start-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .end-btn {
+            background-color: #fd7e14;
+            color: white;
+        }
+
+        .panic-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .panic-btn i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Výjezd Odtahové Služby</h2>
+        <label for="postal-code">Poštovní kód:</label>
+        <input type="text" id="postal-code" placeholder="Zadejte poštovní kód" />
+
+        <div class="buttons">
+            <button class="start-btn">Start Výjezdu</button>
+            <button class="end-btn">Ukončit Výjezd</button>
+        </div>
+
+        <div class="buttons">
+            <button class="panic-btn"><i class="fas fa-exclamation-triangle"></i> PANIC BUTTON</button>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.start-btn').addEventListener('click', function () {
+            alert('Výjezd byl zahájen!');
+        });
+
+        document.querySelector('.end-btn').addEventListener('click', function () {
+            alert('Výjezd byl ukončen!');
+        });
+
+        document.querySelector('.panic-btn').addEventListener('click', function () {
+            alert('Panic Button stisknut! Všichni zaměstnanci jsou varováni!');
+        });
+    </script>
+</body>
+
+</html>
