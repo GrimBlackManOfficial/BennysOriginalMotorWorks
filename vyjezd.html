@@ -1,120 +1,169 @@
 <!DOCTYPE html>
 <html lang="cs">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Výjezd Odtahové Služby</title>
+    <title>Výjezd - Bennys Original Motor Works</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
+            background-color: #2C2F33;
+            color: white;
         }
 
-        .container {
-            width: 90%;
-            max-width: 600px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-
-        label {
-            font-size: 16px;
-            margin-bottom: 10px;
-            display: block;
-            color: #555;
-        }
-
-        input[type="text"] {
+        /* Loading Screen */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            z-index: 9999;
+            flex-direction: column;
         }
 
-        .buttons {
-            display: flex;
-            justify-content: space-between;
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #loading-text {
             margin-top: 20px;
+            font-size: 24px;
+            animation: fadeInOut 1s infinite;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            25% { opacity: 1; }
+            50% { opacity: 0; }
+            75% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Main Content */
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #23272A;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none; /* Hidden until loading is complete */
+        }
+
+        h1 {
+            color: red;
+            font-size: 2em;
         }
 
         button {
-            padding: 10px 20px;
-            font-size: 16px;
+            display: block;
+            width: 200px;
+            padding: 10px;
+            margin: 10px auto;
             border: none;
             border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: 0.3s;
+        }
+
+        .btn-start {
+            background-color: green;
+            color: white;
+        }
+
+        .btn-end {
+            background-color: orange;
+            color: white;
+        }
+
+        .btn-panic {
+            background-color: red;
+            color: white;
         }
 
         button:hover {
             opacity: 0.8;
         }
-
-        .start-btn {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .end-btn {
-            background-color: #fd7e14;
-            color: white;
-        }
-
-        .panic-btn {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .panic-btn i {
-            margin-right: 5px;
-        }
     </style>
 </head>
-
 <body>
+
+    <!-- Loading Screen -->
+    <div id="loading">
+        <div class="loader"></div>
+        <span id="loading-text">Načítání systému...</span>
+    </div>
+
+    <!-- Main Content (hidden initially) -->
     <div class="container">
-        <h2>Výjezd Odtahové Služby</h2>
-        <label for="postal-code">Poštovní kód:</label>
-        <input type="text" id="postal-code" placeholder="Zadejte poštovní kód" />
-
-        <div class="buttons">
-            <button class="start-btn">Start Výjezdu</button>
-            <button class="end-btn">Ukončit Výjezd</button>
-        </div>
-
-        <div class="buttons">
-            <button class="panic-btn"><i class="fas fa-exclamation-triangle"></i> PANIC BUTTON</button>
-        </div>
+        <h1>Výjezd - Bennys Original Motor Works</h1>
+        <button class="btn-start" onclick="startEmergency()">Start Výjezdu</button>
+        <button class="btn-end" onclick="endEmergency()">Ukončit Výjezd</button>
+        <button class="btn-panic" onclick="panicButton()">PANIC BUTTON!</button>
     </div>
 
     <script>
-        document.querySelector('.start-btn').addEventListener('click', function () {
-            alert('Výjezd byl zahájen!');
-        });
+        // Simulate the loading sequence with text changing
+        let loadingText = document.getElementById("loading-text");
+        let loading = document.getElementById("loading");
+        let container = document.querySelector(".container");
 
-        document.querySelector('.end-btn').addEventListener('click', function () {
-            alert('Výjezd byl ukončen!');
-        });
+        let texts = [
+            "Načítání systému...",
+            "Získávám data...",
+            "Připojuji do systému..."
+        ];
+        let textIndex = 0;
 
-        document.querySelector('.panic-btn').addEventListener('click', function () {
-            alert('Panic Button stisknut! Všichni zaměstnanci jsou varováni!');
-        });
+        function changeText() {
+            loadingText.textContent = texts[textIndex];
+            textIndex++;
+            if (textIndex >= texts.length) {
+                setTimeout(function() {
+                    loading.style.display = 'none'; // Hide loading screen
+                    container.style.display = 'block'; // Show main content
+                }, 1000);
+            }
+        }
+
+        setInterval(changeText, 2000); // Change text every 2 seconds
+
+        // Emergency Button Actions
+        function startEmergency() {
+            alert("Výjezd zahájen!");
+        }
+
+        function endEmergency() {
+            alert("Výjezd ukončen!");
+        }
+
+        function panicButton() {
+            alert("Panic Button stisknut!");
+        }
     </script>
-</body>
 
+</body>
 </html>
