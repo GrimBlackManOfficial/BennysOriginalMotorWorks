@@ -1,18 +1,74 @@
-<!DOCTYPE html><html lang="cs">
+<!DOCTYPE html>
+<html lang="cs">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benny's Original Motor Works</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+    <title>Výběr - Zákazník nebo Zaměstnanec</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        button {
+            margin: 15px 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
-        <h1 class="title">Benny's Original Motor Works</h1>
-        <div class="selection">
-            <button onclick="navigateTo('zamestnanec.html')">Jsem zaměstnanec</button>
-            <button onclick="navigateTo('zakaznik.html')">Jsem zákazník</button>
-        </div>
+        <h1>Vyberte možnost</h1>
+        <button id="customer-btn">Jsem Zákazník</button>
+        <button id="employee-btn">Jsem Zaměstnanec</button>
     </div>
+
+    <script>
+        document.getElementById('customer-btn').addEventListener('click', function () {
+            window.location.href = 'zakaznik.html'; // Přesměrování na stránku pro zákazníka
+        });
+
+        document.getElementById('employee-btn').addEventListener('click', function () {
+            window.location.href = 'zamestnanec.html'; // Přesměrování na stránku pro zaměstnance
+        });
+    </script>
 </body>
+
 </html>
