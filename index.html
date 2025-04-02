@@ -35,7 +35,8 @@
             font-size: 2em;
             color: white;
             margin-bottom: 20px;
-            animation: fadeIn 2s ease-in-out infinite alternate;
+            opacity: 0;
+            animation: fadeInOut 2s ease-in-out infinite alternate;
         }
 
         .progress-bar-container {
@@ -52,7 +53,7 @@
             border-radius: 25px;
         }
 
-        @keyframes fadeIn {
+        @keyframes fadeInOut {
             0% {
                 opacity: 0;
             }
@@ -74,7 +75,6 @@
             font-size: 2.5em;
         }
 
-        /* Další styly pro menu a zbytek obsahu */
         .menu-bar {
             display: flex;
             justify-content: center;
@@ -228,9 +228,23 @@
         // Funkce pro skrývání loading obrazovky a zobrazení hlavní stránky
         window.onload = function() {
             let progress = 0;
+            let loadingTextArray = [
+                "Připojování do systému...",
+                "Získávání dat...",
+                "Potvrzení přístupu..."
+            ];
+            let currentTextIndex = 0;
+
             let loadingInterval = setInterval(function() {
                 progress += 1;
                 document.getElementById('progress-bar').style.width = progress + '%';
+
+                // Změna textu v loading fázi
+                if (progress % 33 === 0 && currentTextIndex < loadingTextArray.length) {
+                    document.getElementById('loading-text').innerText = loadingTextArray[currentTextIndex];
+                    currentTextIndex++;
+                }
+
                 if (progress === 100) {
                     clearInterval(loadingInterval);
                     setTimeout(function() {
@@ -239,7 +253,7 @@
                         showWelcomeMessage();
                     }, 500); // Krátké zpoždění před zobrazením uvítacího textu
                 }
-            }, 30); // Každé 30 ms přidá 1% do progressu
+            }, 50); // Každých 50 ms přidá 1% do progressu
         };
 
         // Funkce pro zobrazení uvítacího textu
@@ -248,6 +262,7 @@
             welcomeText.classList.add('loading-text');
             welcomeText.innerText = "Vítejte v systému Bennys Original Motor Works, uživateli...";
             document.body.appendChild(welcomeText);
+            welcomeText.style.animation = 'fadeInOut 3s ease-in-out';
             setTimeout(function() {
                 welcomeText.style.display = 'none'; // Po 3 sekundách zmizí
             }, 3000);
@@ -263,10 +278,4 @@
                 icon.textContent = "↓";
             } else {
                 content.style.display = "block";
-                icon.textContent = "↑";
-            }
-        }
-    </script>
-
-</body>
-</html>
+                icon.textContent
