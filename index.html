@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bennys Original Motor Works</title>
     <style>
-        /* Styling pro loading obrazovku */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -16,7 +15,7 @@
             color: white;
         }
 
-        /* Nastavení pro loading screen */
+        /* Loading Screen */
         .loading-screen {
             position: fixed;
             top: 0;
@@ -62,9 +61,11 @@
             }
         }
 
-        /* Hlavní obsah */
+        /* Hlavní obsah po načítání */
         .content {
             display: none;
+            padding: 20px;
+            background-color: #222;
         }
 
         .header {
@@ -75,84 +76,48 @@
             font-size: 2.5em;
         }
 
-        .menu-bar {
+        .menu {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            align-items: center;
+            margin-top: 30px;
+        }
+
+        .menu-item {
             background-color: #444;
-            padding: 10px;
+            margin: 10px;
+            padding: 15px 30px;
             color: white;
-        }
-
-        .menu-bar .menu-item {
-            padding: 10px 20px;
-            margin: 5px;
+            border-radius: 25px;
+            text-align: center;
             cursor: pointer;
-            border-radius: 5px;
-            background-color: #555;
-            transition: background-color 0.3s;
-        }
-
-        .menu-bar .menu-item:hover {
-            background-color: #777;
-        }
-
-        .category {
-            background-color: #222;
-            margin: 10px auto;
-            border-radius: 8px;
-            padding: 20px;
-            max-width: 80%;
             transition: all 0.3s ease;
         }
 
-        .category-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
+        .menu-item:hover {
+            background-color: #FF0000;
         }
 
-        .category-header h2 {
-            margin: 0;
-            font-size: 1.5em;
-            color: #FFF;
-        }
-
-        .toggle-icon {
-            color: #FF0000;
-            font-size: 1.5em;
-        }
-
-        .category-content {
+        /* Sekce pro jednotlivé stránky */
+        .section {
             display: none;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
-        .category.active .category-content {
-            display: block;
-        }
-
-        /* Mobile responsive */
+        /* Responsive Design */
         @media (max-width: 768px) {
             .hamburger {
                 display: block;
                 margin-left: 20px;
             }
 
-            .menu-bar {
+            .menu {
                 flex-direction: column;
-                align-items: flex-start;
             }
 
-            .menu-bar .menu-item {
+            .menu-item {
                 width: 100%;
-                padding: 15px;
-                text-align: left;
-            }
-
-            .category {
-                width: 90%;
+                padding: 20px;
             }
         }
     </style>
@@ -167,65 +132,90 @@
         </div>
     </div>
 
-    <!-- Main content -->
+    <!-- Main Content -->
     <div class="content" id="main-content">
         <div class="header">
             <h1>Bennys Original Motor Works</h1>
         </div>
 
-        <div class="menu-bar">
-            <div class="menu-item" onclick="toggleCategory('workForm')">
-                <i class="fas fa-briefcase"></i> Zájem o práci
-            </div>
-            <div class="menu-item" onclick="toggleCategory('collaborationForm')">
-                <i class="fas fa-handshake"></i> Zájem o spolupráci
-            </div>
-            <div class="menu-item" onclick="toggleCategory('invoiceForm')">
-                <i class="fas fa-file-invoice"></i> Evidence faktury
-            </div>
-            <div class="menu-item" onclick="toggleCategory('attendanceForm')">
-                <i class="fas fa-clock"></i> Evidence docházky
-            </div>
+        <!-- Menu Items -->
+        <div class="menu">
+            <div class="menu-item" id="login-menu">Přihlášení</div>
+            <div class="menu-item" id="job-application-menu">Zájem o práci</div>
+            <div class="menu-item" id="collaboration-menu">Zájem o spolupráci</div>
+            <div class="menu-item" id="invoice-menu">Evidence faktury</div>
+            <div class="menu-item" id="attendance-menu">Evidence docházky</div>
         </div>
 
-        <!-- Ostatní obsah -->
-        <div class="category" id="workForm">
-            <div class="category-header" onclick="toggleContent('workForm')">
-                <h2>Zájem o práci</h2>
-                <i class="toggle-icon">↓</i>
-            </div>
-            <div class="category-content">
-                <div class="form-container">
-                    <form action="#">
-                        <label for="name">Jméno:</label>
-                        <input type="text" id="name" name="name" required>
-
-                        <label for="email">E-mail:</label>
-                        <input type="email" id="email" name="email" required>
-
-                        <label for="position">Pozice, o kterou se ucházíte:</label>
-                        <select id="position" name="position">
-                            <option value="mechanic">Mechanik</option>
-                            <option value="admin">Admin</option>
-                            <option value="technician">Technik</option>
-                        </select>
-
-                        <label for="cv">Přiložte svůj životopis (URL):</label>
-                        <input type="text" id="cv" name="cv" required>
-
-                        <label for="experience">Stručně o své praxi a zkušenostech:</label>
-                        <textarea id="experience" name="experience" rows="4" required></textarea>
-
-                        <button type="submit">Odeslat přihlášku</button>
-                    </form>
-                </div>
-            </div>
+        <!-- Sekce -->
+        <div class="section" id="login-section">
+            <h2>Přihlášení</h2>
+            <form>
+                <label for="username">Uživatelské jméno:</label>
+                <input type="text" id="username" name="username">
+                <label for="password">Heslo:</label>
+                <input type="password" id="password" name="password">
+                <button type="submit">Přihlásit</button>
+            </form>
         </div>
-        <!-- Další kategorie budou následovat -->
+
+        <div class="section" id="job-application-section">
+            <h2>Zájem o práci</h2>
+            <form>
+                <label for="name">Jméno:</label>
+                <input type="text" id="name" name="name">
+                <label for="cv">Životopis:</label>
+                <textarea id="cv" name="cv"></textarea>
+                <button type="submit">Odeslat přihlášku</button>
+            </form>
+        </div>
+
+        <div class="section" id="collaboration-section">
+            <h2>Zájem o spolupráci</h2>
+            <form>
+                <label for="collaboration-info">Informace o spolupráci:</label>
+                <textarea id="collaboration-info" name="collaboration-info"></textarea>
+                <button type="submit">Odeslat spolupráci</button>
+            </form>
+        </div>
+
+        <div class="section" id="invoice-section">
+            <h2>Evidence faktury za tuning</h2>
+            <form>
+                <label for="invoice-amount">Částka:</label>
+                <input type="number" id="invoice-amount" name="invoice-amount">
+                <button type="submit">Odeslat fakturu</button>
+            </form>
+        </div>
+
+        <div class="section" id="attendance-section">
+            <h2>Evidence docházky</h2>
+            <button onclick="startShift()">Start směny</button>
+            <button onclick="endShift()">Konec směny</button>
+        </div>
     </div>
 
     <script>
-        // Funkce pro skrývání loading obrazovky a zobrazení hlavní stránky
+        // Funkce pro zobrazení sekce
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        // Funkce pro zahájení směny
+        function startShift() {
+            alert('Směna zahájena!');
+        }
+
+        // Funkce pro ukončení směny
+        function endShift() {
+            alert('Směna ukončena!');
+        }
+
+        // Loading animace
         window.onload = function() {
             let progress = 0;
             let loadingTextArray = [
@@ -234,7 +224,6 @@
                 "Potvrzení přístupu..."
             ];
             let currentTextIndex = 0;
-
             let loadingInterval = setInterval(function() {
                 progress += 1;
                 document.getElementById('progress-bar').style.width = progress + '%';
@@ -250,32 +239,31 @@
                     setTimeout(function() {
                         document.getElementById('loading-screen').style.display = 'none';
                         document.getElementById('main-content').style.display = 'block';
-                        showWelcomeMessage();
-                    }, 500); // Krátké zpoždění před zobrazením uvítacího textu
+                    }, 500); // Krátké zpoždění před zobrazením hlavního obsahu
                 }
             }, 50); // Každých 50 ms přidá 1% do progressu
         };
 
-        // Funkce pro zobrazení uvítacího textu
-        function showWelcomeMessage() {
-            let welcomeText = document.createElement('div');
-            welcomeText.classList.add('loading-text');
-            welcomeText.innerText = "Vítejte v systému Bennys Original Motor Works, uživateli...";
-            document.body.appendChild(welcomeText);
-            welcomeText.style.animation = 'fadeInOut 3s ease-in-out';
-            setTimeout(function() {
-                welcomeText.style.display = 'none'; // Po 3 sekundách zmizí
-            }, 3000);
-        }
+        // Aktivace sekcí
+        document.getElementById('login-menu').addEventListener('click', function() {
+            showSection('login-section');
+        });
 
-        // Funkce pro otevření a zavření sekcí
-        function toggleCategory(categoryId) {
-            var category = document.getElementById(categoryId);
-            var icon = category.querySelector(".toggle-icon");
-            var content = category.querySelector(".category-content");
-            if (content.style.display === "block") {
-                content.style.display = "none";
-                icon.textContent = "↓";
-            } else {
-                content.style.display = "block";
-                icon.textContent
+        document.getElementById('job-application-menu').addEventListener('click', function() {
+            showSection('job-application-section');
+        });
+
+        document.getElementById('collaboration-menu').addEventListener('click', function() {
+            showSection('collaboration-section');
+        });
+
+        document.getElementById('invoice-menu').addEventListener('click', function() {
+            showSection('invoice-section');
+        });
+
+        document.getElementById('attendance-menu').addEventListener('click', function() {
+            showSection('attendance-section');
+        });
+    </script>
+</body>
+</html>
