@@ -1,60 +1,68 @@
 <!DOCTYPE html>
 <html lang="cs">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zákazník</title>
+    <title>Zákaznický systém</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #2C2F33;
+            color: white;
+            margin: 0;
+            padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f9;
-            margin: 0;
         }
-
         .container {
-            background-color: #fff;
+            background: #23272A;
+            padding: 20px;
             border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 400px;
-            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none;
         }
-
         h1 {
-            font-size: 24px;
-            color: #333;
+            color: red;
+            font-size: 2em;
         }
-
-        button {
-            margin: 10px 0;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
+        .loading {
+            font-size: 1.5em;
             color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
         }
-
-        button:hover {
-            background-color: #45a049;
+        .spinner {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <h1>Jako zákazník máte tyto možnosti:</h1>
-        <button>Zájem o práci</button>
-        <button>Zájem o spolupráci</button>
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <p class="loading" id="loading-text">Připojuji zákaznický systém...</p>
     </div>
+    <div class="container" id="main-content">
+        <h1>Zákaznický systém</h1>
+        <button class="btn-customer" onclick="location.href='zajem_o_praci.html'">💼 Zájem o práci</button>
+        <button class="btn-customer" onclick="location.href='zajem_o_spolupraci.html'">🤝 Zájem o spolupráci</button>
+    </div>
+    <script>
+        setTimeout(() => {
+            document.getElementById('loading-screen').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        }, 3000);
+    </script>
 </body>
-
 </html>
