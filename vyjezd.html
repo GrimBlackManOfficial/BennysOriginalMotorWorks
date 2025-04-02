@@ -141,6 +141,35 @@
             content: "🚪"; /* Logout Icon */
             margin-right: 8px;
         }
+
+        /* Logout button positioned at the bottom right */
+        .btn-logout {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        /* Stopwatch Styling */
+        .stopwatch {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: none; /* Initially hidden */
+        }
+
+        /* Stopwatch Button Styling */
+        .stopwatch-btn {
+            font-size: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
     </style>
 </head>
 <body>
@@ -164,8 +193,13 @@
         <!-- Panic Button -->
         <button class="btn-panic" onclick="panicButton()">PANIC BUTTON!</button>
 
-        <!-- Logout Button -->
+        <!-- Logout Button positioned at bottom-right corner -->
         <button class="btn-logout" onclick="logout()">Odhlásit se z výjezdu</button>
+    </div>
+
+    <!-- Stopwatch -->
+    <div id="stopwatch" class="stopwatch">
+        <span id="time">00:00:00</span>
     </div>
 
     <script>
@@ -194,13 +228,41 @@
 
         setInterval(changeText, 2000); // Change text every 2 seconds
 
-        // Emergency Button Actions
+        // Stopwatch Variables
+        let stopwatchInterval;
+        let timeElapsed = 0; // In seconds
+        let running = false;
+
+        function startStopwatch() {
+            if (!running) {
+                running = true;
+                stopwatchInterval = setInterval(function() {
+                    timeElapsed++;
+                    let hours = Math.floor(timeElapsed / 3600);
+                    let minutes = Math.floor((timeElapsed % 3600) / 60);
+                    let seconds = timeElapsed % 60;
+                    document.getElementById("time").textContent = 
+                        (hours < 10 ? "0" : "") + hours + ":" +
+                        (minutes < 10 ? "0" : "") + minutes + ":" +
+                        (seconds < 10 ? "0" : "") + seconds;
+                }, 1000);
+            }
+        }
+
+        function stopStopwatch() {
+            if (running) {
+                running = false;
+                clearInterval(stopwatchInterval);
+            }
+        }
+
         function startEmergency() {
-            alert("Výjezd zahájen!");
+            document.getElementById("stopwatch").style.display = "block"; // Show stopwatch
+            startStopwatch();
         }
 
         function endEmergency() {
-            alert("Výjezd ukončen!");
+            stopStopwatch();
         }
 
         function panicButton() {
