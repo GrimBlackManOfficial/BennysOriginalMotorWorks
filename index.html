@@ -1,146 +1,79 @@
 <link rel="stylesheet" href="style.css">
 
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html><html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benny's Motor Works - Formuláře</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
-            color: #ffffff;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #d32f2f;
-            padding: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 20px;
-        }
-        button {
-            background-color: #d32f2f;
-            color: #fff;
-            border: none;
-            padding: 12px 20px;
-            font-size: 16px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        button:hover {
-            background-color: #b71c1c;
-        }
-        .tab-content {
-            display: none;
-            margin: 20px auto;
-            width: 80%;
-            background-color: #2c2c2c;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-        }
-        .sub-category {
-            display: none;
-            margin-top: 15px;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-        input, textarea {
-            width: 80%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #d32f2f;
-            background-color: #333;
-            color: #fff;
-        }
-        label {
-            font-size: 18px;
-        }
-    </style>
+    <title>Benny's Original Motor Works</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>Benny's Motor Works</header>
-    <nav>
-        <button onclick="openTab('job-application')">Zájem o práci / Spolupráce</button>
-        <button onclick="openTab('employees')">Zaměstnanci</button>
-    </nav>
-    <section id="job-application" class="tab-content">
-        <h2>Zájem o práci / Spolupráce</h2>
-        <button onclick="openSubCategory('job-application-form')">Přihláška</button>
-        <button onclick="openSubCategory('collaboration-form')">Spolupráce</button>
-        <div id="job-application-form" class="sub-category">
-            <form>
-                <label for="name">Jméno a Příjmení:</label>
-                <input type="text" id="name" required>
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" required>
-                <label for="cv">Životopis:</label>
-                <textarea id="cv" rows="4" required></textarea>
-                <button type="submit">Odeslat</button>
-            </form>
-        </div>
-        <div id="collaboration-form" class="sub-category">
-            <form>
-                <label for="collab-name">Jméno a Příjmení / Název společnosti:</label>
-                <input type="text" id="collab-name" required>
-                <label for="collab-email">E-mail:</label>
-                <input type="email" id="collab-email" required>
-                <label for="collab-details">Popis spolupráce:</label>
-                <textarea id="collab-details" rows="4" required></textarea>
-                <button type="submit">Odeslat</button>
-            </form>
-        </div>
-    </section>
-    <section id="employees" class="tab-content">
-        <h2>Zaměstnanci</h2>
-        <button onclick="openSubCategory('attendance')">Docházka</button>
-        <button onclick="openSubCategory('tuning-invoice')">Evidovat fakturu za tuning</button>
-        <div id="attendance" class="sub-category">
-            <form>
-                <label for="employee">Jméno zaměstnance:</label>
-                <input type="text" id="employee" required>
-                <label for="hours">Počet hodin:</label>
-                <input type="number" id="hours" required>
-                <button type="submit">Zaznamenat</button>
-            </form>
-        </div>
-        <div id="tuning-invoice" class="sub-category">
-            <form>
-                <label for="employee-invoice">Jméno zaměstnance:</label>
-                <input type="text" id="employee-invoice" required>
-                <label for="invoice-amount">Částka za tuning ($):</label>
-                <input type="number" id="invoice-amount" required>
-                <label for="invoice-date">Datum:</label>
-                <input type="date" id="invoice-date" required>
-                <button type="submit">Evidovat</button>
-            </form>
-        </div>
-    </section>
-    <script>
-        function openTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
-            document.getElementById(tabId).style.display = 'block';
+    <header>
+        <h1>Benny's Original Motor Works</h1>
+        <nav>
+            <ul>
+                <li><a href="#zamestnanci">Zaměstnanci</a></li>
+                <li><a href="#zajem-o-praci">Zájem o práci</a></li>
+                <li><a href="#zajem-o-spolupraci">Zájem o spolupráci</a></li>
+                <li><a href="#prihlaseni">Přihlášení</a></li>
+            </ul>
+        </nav>
+    </header><section id="zamestnanci">
+    <h2>Zaměstnanci</h2>
+    <label for="employee">Vyberte zaměstnance:</label>
+    <select id="employee">
+        <option value="jobs">Jobs</option>
+        <option value="gustafsson">Gustafsson</option>
+        <option value="garcia">Garcia</option>
+        <option value="brown">Brown</option>
+        <option value="morgan">Morgan</option>
+    </select>
+    <button onclick="startShift()">Start směny</button>
+    <button onclick="endShift()">Konec směny</button>
+    <p id="shiftStatus">Směna neběží</p>
+</section>
+
+<section id="zajem-o-praci">
+    <h2>Zájem o práci</h2>
+    <button onclick="openForm('prihlaska-prace')">Vyplnit přihlášku</button>
+</section>
+
+<section id="zajem-o-spolupraci">
+    <h2>Zájem o spolupráci</h2>
+    <button onclick="openForm('prihlaska-spoluprace')">Vyplnit žádost o spolupráci</button>
+</section>
+
+<section id="prihlaseni">
+    <h2>Přihlášení zaměstnance</h2>
+    <form>
+        <label for="username">Jméno:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Heslo:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Přihlásit se</button>
+    </form>
+</section>
+
+<script>
+    let shiftStartTime = null;
+    function startShift() {
+        if (!shiftStartTime) {
+            shiftStartTime = new Date();
+            document.getElementById("shiftStatus").innerText = "Směna začala v " + shiftStartTime.toLocaleTimeString();
         }
-        function openSubCategory(subCategoryId) {
-            document.querySelectorAll('.sub-category').forEach(sub => sub.style.display = 'none');
-            document.getElementById(subCategoryId).style.display = 'block';
+    }
+    function endShift() {
+        if (shiftStartTime) {
+            let shiftEndTime = new Date();
+            let duration = Math.round((shiftEndTime - shiftStartTime) / 1000 / 60); // v minutách
+            document.getElementById("shiftStatus").innerText = "Směna ukončena v " + shiftEndTime.toLocaleTimeString() + " (doba trvání: " + duration + " min)";
+            shiftStartTime = null;
         }
-        window.onload = () => openTab('job-application');
-    </script>
+    }
+    function openForm(formType) {
+        window.open(formType + '.html', '_blank');
+    }
+</script>
+
 </body>
 </html>
