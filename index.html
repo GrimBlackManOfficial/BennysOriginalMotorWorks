@@ -92,16 +92,58 @@
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            width: 200px;
         }
 
         .menu-item:hover {
             background-color: #FF0000;
         }
 
-        /* Sekce pro jednotlivé stránky */
-        .section {
-            display: none;
-            margin-top: 30px;
+        /* Moderní formuláře */
+        form {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 500px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            display: block;
+            color: white;
+        }
+
+        input[type="text"], input[type="password"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background-color: #222;
+            color: white;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        button {
+            background-color: #FF0000;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            font-size: 1.2em;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #cc0000;
         }
 
         /* Responsive Design */
@@ -147,7 +189,7 @@
             <div class="menu-item" id="attendance-menu">Evidence docházky</div>
         </div>
 
-        <!-- Sekce -->
+        <!-- Sekce pro přihlášení -->
         <div class="section" id="login-section">
             <h2>Přihlášení</h2>
             <form>
@@ -159,6 +201,7 @@
             </form>
         </div>
 
+        <!-- Sekce pro zájem o práci -->
         <div class="section" id="job-application-section">
             <h2>Zájem o práci</h2>
             <form>
@@ -170,6 +213,7 @@
             </form>
         </div>
 
+        <!-- Sekce pro zájem o spolupráci -->
         <div class="section" id="collaboration-section">
             <h2>Zájem o spolupráci</h2>
             <form>
@@ -179,6 +223,7 @@
             </form>
         </div>
 
+        <!-- Sekce pro evidence faktury -->
         <div class="section" id="invoice-section">
             <h2>Evidence faktury za tuning</h2>
             <form>
@@ -188,6 +233,7 @@
             </form>
         </div>
 
+        <!-- Sekce pro evidence docházky -->
         <div class="section" id="attendance-section">
             <h2>Evidence docházky</h2>
             <button onclick="startShift()">Start směny</button>
@@ -236,34 +282,4 @@
 
                 if (progress === 100) {
                     clearInterval(loadingInterval);
-                    setTimeout(function() {
-                        document.getElementById('loading-screen').style.display = 'none';
-                        document.getElementById('main-content').style.display = 'block';
-                    }, 500); // Krátké zpoždění před zobrazením hlavního obsahu
-                }
-            }, 50); // Každých 50 ms přidá 1% do progressu
-        };
-
-        // Aktivace sekcí
-        document.getElementById('login-menu').addEventListener('click', function() {
-            showSection('login-section');
-        });
-
-        document.getElementById('job-application-menu').addEventListener('click', function() {
-            showSection('job-application-section');
-        });
-
-        document.getElementById('collaboration-menu').addEventListener('click', function() {
-            showSection('collaboration-section');
-        });
-
-        document.getElementById('invoice-menu').addEventListener('click', function() {
-            showSection('invoice-section');
-        });
-
-        document.getElementById('attendance-menu').addEventListener('click', function() {
-            showSection('attendance-section');
-        });
-    </script>
-</body>
-</html>
+                    setTimeout(function
