@@ -150,17 +150,14 @@
         // Zavolání loadingu při načtení stránky
         window.onload = simulateLoading;
 
-        // Přidání fade-in efektu po kliknutí na tlačítka
+        // Přesměrování na stránku Zákazník
         document.getElementById('customer-btn').addEventListener('click', function() {
-            alert('Přesměrování na stránku zákazníka...');
-            // Místo alertu můžeš přidat přesměrování na jinou stránku, např.:
-            // window.location.href = 'zakaznik.html';
+            window.location.href = 'zakaznik.html'; // Změň na správnou URL
         });
 
+        // Přesměrování na stránku Zaměstnanec
         document.getElementById('employee-btn').addEventListener('click', function() {
-            alert('Přesměrování na stránku zaměstnanců...');
-            // Místo alertu můžeš přidat přesměrování na jinou stránku, např.:
-            // window.location.href = 'zamestnanec.html';
+            window.location.href = 'zamestnanec.html'; // Změň na správnou URL
         });
     </script>
 </body>
