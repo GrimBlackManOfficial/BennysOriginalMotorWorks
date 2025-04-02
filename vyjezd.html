@@ -78,15 +78,15 @@
         }
 
         button {
-            display: block;
-            width: 200px;
-            padding: 10px;
-            margin: 10px auto;
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
             border: none;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
             transition: 0.3s;
+            position: relative;
         }
 
         .btn-start {
@@ -104,8 +104,41 @@
             color: white;
         }
 
+        .btn-logout {
+            background-color: #555;
+            color: white;
+        }
+
         button:hover {
             opacity: 0.8;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Button Icons */
+        .btn-start::before {
+            content: "▶"; /* Start Icon */
+            margin-right: 8px;
+        }
+
+        .btn-end::before {
+            content: "⏹"; /* Stop Icon */
+            margin-right: 8px;
+        }
+
+        .btn-panic::before {
+            content: "⚠️"; /* Panic Icon */
+            margin-right: 8px;
+        }
+
+        .btn-logout::before {
+            content: "🚪"; /* Logout Icon */
+            margin-right: 8px;
         }
     </style>
 </head>
@@ -120,9 +153,18 @@
     <!-- Main Content (hidden initially) -->
     <div class="container">
         <h1>Výjezd - Bennys Original Motor Works</h1>
-        <button class="btn-start" onclick="startEmergency()">Start Výjezdu</button>
-        <button class="btn-end" onclick="endEmergency()">Ukončit Výjezd</button>
+        
+        <!-- Button Group (Start and End buttons next to each other) -->
+        <div class="button-group">
+            <button class="btn-start" onclick="startEmergency()">Start Výjezdu</button>
+            <button class="btn-end" onclick="endEmergency()">Ukončit Výjezd</button>
+        </div>
+
+        <!-- Panic Button -->
         <button class="btn-panic" onclick="panicButton()">PANIC BUTTON!</button>
+
+        <!-- Logout Button -->
+        <button class="btn-logout" onclick="logout()">Odhlásit se z výjezdu</button>
     </div>
 
     <script>
@@ -162,6 +204,10 @@
 
         function panicButton() {
             alert("Panic Button stisknut!");
+        }
+
+        function logout() {
+            window.location.href = "zamestnanec.html"; // Redirect to employee page
         }
     </script>
 
