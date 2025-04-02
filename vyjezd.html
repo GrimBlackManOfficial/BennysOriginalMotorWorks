@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Výjezd - Bennys Original Motor Works</title>
+    <title>Benny's TowDispatch</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -70,6 +70,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             display: none; /* Hidden until loading is complete */
+            position: relative;
         }
 
         h1 {
@@ -170,6 +171,10 @@
             margin-top: 20px;
         }
 
+        /* Stop Button Styling */
+        .stopwatch-btn {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -177,12 +182,12 @@
     <!-- Loading Screen -->
     <div id="loading">
         <div class="loader"></div>
-        <span id="loading-text">Načítání systému...</span>
+        <span id="loading-text">Připojuji tablet odtahové služby...</span>
     </div>
 
     <!-- Main Content (hidden initially) -->
     <div class="container">
-        <h1>Výjezd - Bennys Original Motor Works</h1>
+        <h1>Benny's TowDispatch</h1>
         
         <!-- Button Group (Start and End buttons next to each other) -->
         <div class="button-group">
@@ -209,7 +214,7 @@
         let container = document.querySelector(".container");
 
         let texts = [
-            "Načítání systému...",
+            "Připojuji tablet odtahové služby...",
             "Získávám data...",
             "Připojuji do systému..."
         ];
@@ -226,7 +231,7 @@
             }
         }
 
-        setInterval(changeText, 2000); // Change text every 2 seconds
+        setInterval(changeText, 1000); // Change text every 1 second
 
         // Stopwatch Variables
         let stopwatchInterval;
