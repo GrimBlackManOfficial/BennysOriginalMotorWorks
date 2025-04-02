@@ -1,186 +1,270 @@
 <link rel="stylesheet" href="style.css">
 
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benny's Original Motor Works</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Bennys Original Motor Works</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
-            color: white;
-            text-align: center;
             margin: 0;
             padding: 0;
+            background-color: #121212;
+            color: white;
         }
-        header {
-            background-color: #b71c1c;
-            padding: 20px 40px;
-            font-size: 24px;
-            font-weight: bold;
+
+        .header {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+            color: #FF0000;
+            font-size: 2.5em;
+        }
+
+        .menu-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #444;
+            padding: 10px;
+            color: white;
+        }
+
+        .menu-bar .menu-item {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #555;
+            transition: background-color 0.3s;
+        }
+
+        .menu-bar .menu-item:hover {
+            background-color: #777;
+        }
+
+        .menu-bar .menu-item i {
+            margin-right: 10px;
+        }
+
+        .content {
+            margin-top: 20px;
+        }
+
+        .category {
+            background-color: #222;
+            margin: 10px auto;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 80%;
+            transition: all 0.3s ease;
+        }
+
+        .category-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            gap: 20px;
-        }
-        nav ul li {
-            display: inline;
-        }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-        }
-        .main-content {
-            margin: 40px auto;
-            padding: 30px;
-            background-color: #333;
-            border-radius: 10px;
-            width: 80%;
-            box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5);
-        }
-        .main-content h2 {
-            margin-bottom: 20px;
-        }
-        .category-button {
-            background-color: #b71c1c;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 20px;
             cursor: pointer;
-            border-radius: 5px;
-            margin: 15px;
-            width: 60%;
-            transition: 0.3s;
         }
-        .category-button:hover {
-            background-color: #d32f2f;
+
+        .category-header h2 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #FFF;
         }
-        .category-button:focus {
-            outline: none;
+
+        .toggle-icon {
+            color: #FF0000;
+            font-size: 1.5em;
         }
-        .category-section {
+
+        .category-content {
             display: none;
             margin-top: 20px;
         }
-        .category-section.active {
+
+        .category.active .category-content {
             display: block;
+        }
+
+        .form-container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        input[type="text"], input[type="email"], input[type="date"], select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 20px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #444;
+            color: white;
+        }
+
+        button {
+            background-color: #FF0000;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #e50000;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 2em;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+                margin-left: 20px;
+            }
+
+            .menu-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .menu-bar .menu-item {
+                width: 100%;
+                padding: 15px;
+                text-align: left;
+            }
+
+            .category {
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div>Benny's Original Motor Works</div>
-        <nav>
-            <ul>
-                <li><a href="javascript:void(0)" onclick="toggleSection('prihlaseni')">Přihlášení</a></li>
-                <li><a href="javascript:void(0)" onclick="toggleSection('zajem-o-praci')">Zájem o práci</a></li>
-                <li><a href="javascript:void(0)" onclick="toggleSection('zajem-o-spolupraci')">Zájem o spolupráci</a></li>
-                <li><a href="javascript:void(0)" onclick="toggleSection('faktura')">Evidence faktury</a></li>
-                <li><a href="javascript:void(0)" onclick="toggleSection('dochazka')">Evidence docházky</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <section class="main-content">
-        <h2>Vítejte v Benny's Original Motor Works</h2>
-        <p>Vyberte jednu z následujících možností, kterou chcete prozkoumat:</p>
+    <div class="header">
+        <h1>Bennys Original Motor Works</h1>
+    </div>
 
-        <button class="category-button" onclick="toggleSection('prihlaseni')">Přihlášení</button>
-        <button class="category-button" onclick="toggleSection('zajem-o-praci')">Zájem o práci</button>
-        <button class="category-button" onclick="toggleSection('zajem-o-spolupraci')">Zájem o spolupráci</button>
-        <button class="category-button" onclick="toggleSection('faktura')">Evidence faktury</button>
-        <button class="category-button" onclick="toggleSection('dochazka')">Evidence docházky</button>
-    </section>
+    <div class="menu-bar">
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <div class="menu-item" onclick="toggleCategory('workForm')">
+            <i class="fas fa-briefcase"></i> Zájem o práci
+        </div>
+        <div class="menu-item" onclick="toggleCategory('collaborationForm')">
+            <i class="fas fa-handshake"></i> Zájem o spolupráci
+        </div>
+        <div class="menu-item" onclick="toggleCategory('invoiceForm')">
+            <i class="fas fa-file-invoice"></i> Evidence faktury
+        </div>
+        <div class="menu-item" onclick="toggleCategory('attendanceForm')">
+            <i class="fas fa-clock"></i> Evidence docházky
+        </div>
+    </div>
 
-    <section id="prihlaseni" class="category-section">
-        <h2>Přihlášení zaměstnance</h2>
-        <form>
-            <label for="username">Jméno:</label>
-            <input type="text" id="username" name="username" required>
-            <label for="password">Heslo:</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">Přihlásit se</button>
-        </form>
-    </section>
+    <div class="content">
+        <div class="category" id="workForm">
+            <div class="category-header" onclick="toggleContent('workForm')">
+                <h2>Zájem o práci</h2>
+                <i class="toggle-icon">↓</i>
+            </div>
+            <div class="category-content">
+                <div class="form-container">
+                    <div class="form-header">Zájem o práci</div>
+                    <form action="#">
+                        <label for="name">Jméno:</label>
+                        <input type="text" id="name" name="name" required>
 
-    <section id="zajem-o-praci" class="category-section">
-        <h2>Zájem o práci</h2>
-        <button onclick="openForm('prihlaska-prace')">Vyplnit přihlášku</button>
-    </section>
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" name="email" required>
 
-    <section id="zajem-o-spolupraci" class="category-section">
-        <h2>Zájem o spolupráci</h2>
-        <button onclick="openForm('prihlaska-spoluprace')">Vyplnit žádost o spolupráci</button>
-    </section>
+                        <label for="position">Pozice, o kterou se ucházíte:</label>
+                        <select id="position" name="position">
+                            <option value="mechanic">Mechanik</option>
+                            <option value="admin">Admin</option>
+                            <option value="technician">Technik</option>
+                        </select>
 
-    <section id="faktura" class="category-section">
-        <h2>Evidence faktury</h2>
-        <p>Zde můžete zadávat faktury za tuning.</p>
-        <button>Vyplnit fakturu</button>
-    </section>
+                        <label for="cv">Přiložte svůj životopis (URL):</label>
+                        <input type="text" id="cv" name="cv" required>
 
-    <section id="dochazka" class="category-section">
-        <h2>Evidence docházky</h2>
-        <label for="employee">Vyberte zaměstnance:</label>
-        <select id="employee">
-            <option value="jobs">Jobs</option>
-            <option value="gustafsson">Gustafsson</option>
-            <option value="garcia">Garcia</option>
-            <option value="brown">Brown</option>
-            <option value="morgan">Morgan</option>
-        </select>
-        <button onclick="startShift()">Start směny</button>
-        <button onclick="endShift()">Konec směny</button>
-        <p id="shiftStatus">Směna neběží</p>
-    </section>
+                        <label for="experience">Stručně o své praxi a zkušenostech:</label>
+                        <textarea id="experience" name="experience" rows="4" required></textarea>
 
-    <script>
-        let shiftStartTime = null;
+                        <button type="submit">Odeslat přihlášku</button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-        // Funkce pro začátek směny
-        function startShift() {
-            if (!shiftStartTime) {
-                shiftStartTime = new Date();
-                document.getElementById("shiftStatus").innerText = "Směna začala v " + shiftStartTime.toLocaleTimeString();
-            }
-        }
+        <div class="category" id="collaborationForm">
+            <div class="category-header" onclick="toggleContent('collaborationForm')">
+                <h2>Zájem o spolupráci</h2>
+                <i class="toggle-icon">↓</i>
+            </div>
+            <div class="category-content">
+                <div class="form-container">
+                    <div class="form-header">Zájem o spolupráci</div>
+                    <form action="#">
+                        <label for="companyName">Název společnosti:</label>
+                        <input type="text" id="companyName" name="companyName" required>
 
-        // Funkce pro konec směny
-        function endShift() {
-            if (shiftStartTime) {
-                let shiftEndTime = new Date();
-                let duration = Math.round((shiftEndTime - shiftStartTime) / 1000 / 60); // v minutách
-                document.getElementById("shiftStatus").innerText = "Směna ukončena v " + shiftEndTime.toLocaleTimeString() + " (doba trvání: " + duration + " min)";
-                shiftStartTime = null;
-            }
-        }
+                        <label for="contactEmail">Kontaktní e-mail:</label>
+                        <input type="email" id="contactEmail" name="contactEmail" required>
 
-        // Funkce pro otevření formuláře
-        function openForm(formType) {
-            window.open(formType + '.html', '_blank');
-        }
+                        <label for="collaborationDetails">Detail spolupráce:</label>
+                        <textarea id="collaborationDetails" name="collaborationDetails" rows="4" required></textarea>
 
-        // Funkce pro přepínání zobrazení sekcí
-        function toggleSection(sectionId) {
-            const sections = document.querySelectorAll('.category-section');
-            sections.forEach(section => {
-                if (section.id === sectionId) {
-                    section.classList.toggle('active');
-                } else {
-                    section.classList.remove('active');
-                }
-            });
-        }
-    </script>
-</body>
-</html>
+                        <label for="startDate">Navrhovaný termín začátku spolupráce:</label>
+                        <input type="date" id="startDate" name="startDate">
+
+                        <button type="submit">Odeslat žádost</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="category" id="invoiceForm">
+            <div class="category-header" onclick="toggleContent('invoiceForm')">
+                <h2>Evidence faktury</h2>
+                <i class="toggle-icon">↓</i>
+            </div>
+            <div class="category-content">
+                <div class="form-container">
+                    <div class="form-header">Faktura za Tuning</div>
+                    <form action="#">
+                        <label for="employee">Jméno zaměstnance:</label>
+                        <select id="employee" name="employee">
+                            <option value="John">John</option>
+                            <option value="Doe">Doe</option>
+                            <option value="Jane">Jane</option>
+                        </select>
+
+                        <label for="amount">Částka faktury ($):</label>
+                        <input type="text" id="amount" name="amount" required>
+
+                        <label for="serviceDate">Datum služby:</label>
+                        <input type="date" id="serviceDate" name="serviceDate" required>
+
+                        <button type="submit">Zapsat fakturu</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="category" id="attendanceForm">
+            <div class="category-header" onclick="toggleContent('attendanceForm')">
+                <h2>Evidence docházky</h2>
+                <i class="toggle-icon">↓</i>
+            </div>
+            <div class="category-content">
+                <div class="form-container">
+                    <button onclick="startShift()">Start směny</button>
+                    <button onclick="endShift()">Konec směny</button>
