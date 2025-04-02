@@ -38,6 +38,20 @@
             animation: fadeIn 2s ease-in-out infinite alternate;
         }
 
+        .progress-bar-container {
+            width: 70%;
+            background-color: #444;
+            border-radius: 25px;
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 30px;
+            background-color: #FF0000;
+            border-radius: 25px;
+        }
+
         @keyframes fadeIn {
             0% {
                 opacity: 0;
@@ -60,7 +74,7 @@
             font-size: 2.5em;
         }
 
-        /* Další styly pro menu a zbytek obsahu, které zůstávají stejné */
+        /* Další styly pro menu a zbytek obsahu */
         .menu-bar {
             display: flex;
             justify-content: center;
@@ -81,10 +95,6 @@
 
         .menu-bar .menu-item:hover {
             background-color: #777;
-        }
-
-        .menu-bar .menu-item i {
-            margin-right: 10px;
         }
 
         .category {
@@ -151,7 +161,10 @@
 
     <!-- Loading Screen -->
     <div class="loading-screen" id="loading-screen">
-        <div class="loading-text">Připojování do systému...</div>
+        <div class="loading-text" id="loading-text">Připojování do systému...</div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
     </div>
 
     <!-- Main content -->
@@ -175,7 +188,7 @@
             </div>
         </div>
 
-        <!-- Ostatní obsah, který už zůstává stejný -->
+        <!-- Ostatní obsah -->
         <div class="category" id="workForm">
             <div class="category-header" onclick="toggleContent('workForm')">
                 <h2>Zájem o práci</h2>
@@ -214,11 +227,31 @@
     <script>
         // Funkce pro skrývání loading obrazovky a zobrazení hlavní stránky
         window.onload = function() {
-            setTimeout(function() {
-                document.getElementById('loading-screen').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-            }, 3000); // Po 3 sekundách se skryje loading obrazovka
+            let progress = 0;
+            let loadingInterval = setInterval(function() {
+                progress += 1;
+                document.getElementById('progress-bar').style.width = progress + '%';
+                if (progress === 100) {
+                    clearInterval(loadingInterval);
+                    setTimeout(function() {
+                        document.getElementById('loading-screen').style.display = 'none';
+                        document.getElementById('main-content').style.display = 'block';
+                        showWelcomeMessage();
+                    }, 500); // Krátké zpoždění před zobrazením uvítacího textu
+                }
+            }, 30); // Každé 30 ms přidá 1% do progressu
         };
+
+        // Funkce pro zobrazení uvítacího textu
+        function showWelcomeMessage() {
+            let welcomeText = document.createElement('div');
+            welcomeText.classList.add('loading-text');
+            welcomeText.innerText = "Vítejte v systému Bennys Original Motor Works, uživateli...";
+            document.body.appendChild(welcomeText);
+            setTimeout(function() {
+                welcomeText.style.display = 'none'; // Po 3 sekundách zmizí
+            }, 3000);
+        }
 
         // Funkce pro otevření a zavření sekcí
         function toggleCategory(categoryId) {
