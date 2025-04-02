@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zákazník | Benny's Original Motor Works</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Vítejte v Benny's Original Motor Works</h1>
+        <p>Vyberte jednu z možností:</p><div class="options">
+        <button onclick="showForm('prace')">Zájem o práci</button>
+        <button onclick="showForm('spoluprace')">Zájem o spolupráci</button>
+    </div>
+    
+    <div id="praceForm" class="hidden">
+        <h2>Přihláška na práci</h2>
+        <form id="praceFormular">
+            <label>Jméno a příjmení:</label>
+            <input type="text" required>
+            
+            <label>Datum narození:</label>
+            <input type="date" required>
+            
+            <label>Občanství:</label>
+            <input type="text" required>
+            
+            <label>Telefonní číslo:</label>
+            <input type="tel" required>
+            
+            <label>E-mail:</label>
+            <input type="email" required>
+            
+            <label>Trvalé bydliště:</label>
+            <input type="text" placeholder="Pokud-li nemáte, napište 'neuvedeno'" required>
+            
+            <label>Trestní rejstřík:</label>
+            <select id="rejstrik" onchange="checkRejstrik()">
+                <option value="clean">Čistý</option>
+                <option value="record">Záznam</option>
+            </select>
+            
+            <div id="rejstrikDetail" class="hidden">
+                <label>Detail záznamu:</label>
+                <textarea></textarea>
+            </div>
+            
+            <label>Řidičský průkaz:</label>
+            <select multiple>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+            </select>
+            
+            <button type="submit">Pokračovat</button>
+        </form>
+    </div>
+    
+    <div id="spolupraceForm" class="hidden">
+        <h2>Žádost o spolupráci</h2>
+        <form id="spolupraceFormular">
+            <label>Jméno a příjmení:</label>
+            <input type="text" required>
+            
+            <label>Datum narození:</label>
+            <input type="date" required>
+            
+            <label>Občanství:</label>
+            <input type="text" required>
+            
+            <label>Telefonní číslo:</label>
+            <input type="tel" required>
+            
+            <label>E-mail:</label>
+            <input type="email" required>
+            
+            <label>Trvalé bydliště:</label>
+            <input type="text" placeholder="Pokud-li nemáte, napište 'neuvedeno'" required>
+            
+            <label>Název podniku:</label>
+            <input type="text" required>
+            
+            <label>Obor:</label>
+            <select id="obor" onchange="checkObor()">
+                <option value="gastronomie">Gastronomie</option>
+                <option value="security">Security</option>
+                <option value="fixboxy">FixBoxy</option>
+                <option value="other">Ostatní</option>
+            </select>
+            
+            <div id="oborDetail" class="hidden">
+                <label>Specifikace oboru:</label>
+                <textarea></textarea>
+            </div>
+            
+            <label>Proč byste měl být součástí spolupráce?</label>
+            <textarea required></textarea>
+            
+            <button type="submit">Odeslat</button>
+        </form>
+    </div>
+    
+    <button onclick="goBack()">Zpět</button>
+</div>
+
+</body>
+</html>
