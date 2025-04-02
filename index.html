@@ -12,13 +12,14 @@
         <h1>Benny's Motor Works</h1>
         <p>Formuláře pro přihlášky, docházku a fakturaci</p>
     </header><nav>
-    <button onclick="openTab('job-application')">Zájem o práci</button>
+    <button onclick="openTab('job-application')">Zájem o práci / Spolupráce</button>
     <button onclick="openTab('employees')">Zaměstnanci</button>
 </nav>
 
 <section id="job-application" class="tab-content">
-    <h2>Zájem o práci</h2>
+    <h2>Zájem o práci / Spolupráce</h2>
     <button onclick="openSubCategory('job-application-form')">Přihláška</button>
+    <button onclick="openSubCategory('collaboration-form')">Spolupráce</button>
     <div id="job-application-form" class="sub-category">
         <form>
             <label for="name">Jméno a Příjmení:</label>
@@ -33,11 +34,26 @@
             <button type="submit">Odeslat</button>
         </form>
     </div>
+    <div id="collaboration-form" class="sub-category">
+        <form>
+            <label for="collab-name">Jméno a Příjmení / Název společnosti:</label>
+            <input type="text" id="collab-name" required>
+
+            <label for="collab-email">E-mail:</label>
+            <input type="email" id="collab-email" required>
+
+            <label for="collab-details">Popis spolupráce:</label>
+            <textarea id="collab-details" rows="4" required></textarea>
+            
+            <button type="submit">Odeslat</button>
+        </form>
+    </div>
 </section>
 
 <section id="employees" class="tab-content">
     <h2>Zaměstnanci</h2>
     <button onclick="openSubCategory('attendance')">Docházka</button>
+    <button onclick="openSubCategory('tuning-invoice')">Evidovat fakturu za tuning</button>
     <div id="attendance" class="sub-category">
         <form>
             <label for="employee">Jméno zaměstnance:</label>
@@ -47,6 +63,20 @@
             <input type="number" id="hours" required>
 
             <button type="submit">Zaznamenat</button>
+        </form>
+    </div>
+    <div id="tuning-invoice" class="sub-category">
+        <form>
+            <label for="employee-invoice">Jméno zaměstnance:</label>
+            <input type="text" id="employee-invoice" required>
+
+            <label for="invoice-amount">Částka za tuning ($):</label>
+            <input type="number" id="invoice-amount" required>
+
+            <label for="invoice-date">Datum:</label>
+            <input type="date" id="invoice-date" required>
+
+            <button type="submit">Evidovat</button>
         </form>
     </div>
 </section>
