@@ -1,270 +1,98 @@
 <link rel="stylesheet" href="style.css">
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bennys Original Motor Works</title>
     <style>
+        /* Základní stylování pro výběr */
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #121212;
-            color: white;
-        }
-
-        /* Stránka pro zadání hesla */
-        .password-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #121212;
+            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            z-index: 9999;
+            height: 100vh;
+            margin: 0;
         }
 
-        .password-screen input {
-            font-size: 1.2em;
-            padding: 10px;
-            margin: 10px;
-            border-radius: 8px;
-            border: 1px solid #444;
-            background-color: #222;
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .button {
+            background-color: #3498db;
             color: white;
-            width: 200px;
-        }
-
-        .password-screen button {
-            background-color: #FF0000;
             border: none;
             padding: 10px 20px;
-            color: white;
-            font-size: 1.2em;
-            border-radius: 25px;
+            margin: 10px;
             cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
         }
 
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #121212;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            z-index: 9999;
+        .button:hover {
+            background-color: #2980b9;
+        }
+
+        .section {
             display: none;
-        }
-
-        .loading-text {
-            font-size: 2em;
-            color: white;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeInOut 2s ease-in-out infinite alternate;
-        }
-
-        .progress-bar-container {
-            width: 70%;
-            background-color: #444;
-            border-radius: 25px;
             margin-top: 20px;
         }
 
-        .progress-bar {
-            width: 0%;
-            height: 30px;
-            background-color: #FF0000;
-            border-radius: 25px;
-        }
-
-        @keyframes fadeInOut {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        /* Hlavní obsah po načítání */
-        .content {
-            display: none;
-            padding: 20px;
-            background-color: #222;
-        }
-
-        .header {
-            background-color: #333;
-            padding: 20px;
-            text-align: center;
-            color: #FF0000;
-            font-size: 2.5em;
-        }
-
-        .menu {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
-        .menu-item {
-            background-color: #444;
-            margin: 10px;
-            padding: 15px 30px;
-            color: white;
-            border-radius: 25px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 200px;
-        }
-
-        .menu-item:hover {
-            background-color: #FF0000;
-        }
-
-        /* Moderní formuláře */
-        form {
-            background-color: #333;
-            padding: 20px;
-            border-radius: 15px;
-            margin: 20px auto;
-            max-width: 500px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        label {
-            font-size: 1.2em;
-            margin-bottom: 10px;
+        .visible {
             display: block;
-            color: white;
-        }
-
-        input[type="text"], input[type="password"], input[type="number"], textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0 20px;
-            border-radius: 8px;
-            border: 1px solid #444;
-            background-color: #222;
-            color: white;
-        }
-
-        textarea {
-            height: 100px;
-        }
-
-        button {
-            background-color: #FF0000;
-            border: none;
-            padding: 10px 20px;
-            color: white;
-            font-size: 1.2em;
-            border-radius: 25px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #cc0000;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: block;
-                margin-left: 20px;
-            }
-
-            .menu {
-                flex-direction: column;
-            }
-
-            .menu-item {
-                width: 100%;
-                padding: 20px;
-            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Password Screen -->
-    <div class="password-screen" id="password-screen">
-        <h1 style="color: white;">Zadejte heslo pro přístup do systému</h1>
-        <input type="password" id="password" placeholder="Zadejte heslo" />
-        <button onclick="checkPassword()">Přihlásit se</button>
+<div class="container">
+    <h1>Vítejte v Bennys Original Motor Works</h1>
+    <p>Vyberte, zda jste zákazník nebo zaměstnanec:</p>
+
+    <!-- Výběr pro zákazníka nebo zaměstnance -->
+    <button class="button" id="customerBtn">Jsem Zákazník</button>
+    <button class="button" id="employeeBtn">Jsem Zaměstnanec</button>
+
+    <!-- Sekce pro zákazníka -->
+    <div id="customerSection" class="section">
+        <h2>Zákazník</h2>
+        <button class="button" onclick="window.location.href='#'">Zájem o práci</button>
+        <button class="button" onclick="window.location.href='#'">Zájem o spolupráci</button>
     </div>
 
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loading-screen">
-        <div class="loading-text" id="loading-text">Připojování do systému...</div>
-        <div class="progress-bar-container">
-            <div class="progress-bar" id="progress-bar"></div>
-        </div>
+    <!-- Sekce pro zaměstnanca -->
+    <div id="employeeSection" class="section">
+        <h2>Zaměstnanec</h2>
+        <button class="button" onclick="window.location.href='#'">Fakturování</button>
+        <button class="button" onclick="window.location.href='#'">Docházka</button>
+        <button class="button" onclick="window.location.href='#'">Výjezdy odtahové služby</button>
+        <button class="button" onclick="window.location.href='#'">Panic Button</button>
     </div>
+</div>
 
-    <!-- Main Content -->
-    <div class="content" id="main-content">
-        <div class="header">
-            <h1>Bennys Original Motor Works</h1>
-        </div>
+<script>
+    // Funkce pro zobrazení sekcí podle výběru
+    document.getElementById("customerBtn").addEventListener("click", function() {
+        document.getElementById("customerSection").classList.add("visible");
+        document.getElementById("employeeSection").classList.remove("visible");
+    });
 
-        <!-- Menu Items -->
-        <div class="menu">
-            <div class="menu-item" id="login-menu">Přihlášení</div>
-            <div class="menu-item" id="job-application-menu">Zájem o práci</div>
-            <div class="menu-item" id="collaboration-menu">Zájem o spolupráci</div>
-            <div class="menu-item" id="invoice-menu">Evidence faktury</div>
-            <div class="menu-item" id="attendance-menu">Evidence docházky</div>
-        </div>
-    </div>
-
-    <script>
-        // Funkce pro kontrolu hesla
-        function checkPassword() {
-            var enteredPassword = document.getElementById("password").value;
-            var correctPassword = "1234"; // Správné heslo
-
-            if (enteredPassword === correctPassword) {
-                // Skrýt obrazovku pro zadání hesla
-                document.getElementById("password-screen").style.display = "none";
-
-                // Zobrazit loading obrazovku
-                document.getElementById("loading-screen").style.display = "flex";
-
-                // Simulace loading procesu
-                var progress = 0;
-                var interval = setInterval(function() {
-                    progress += 2; // Zvýšení pokroku
-                    document.getElementById("progress-bar").style.width = progress + "%";
-                    if (progress >= 100) {
-                        clearInterval(interval);
-                        // Skrytí loading obrazovky
-                        document.getElementById("loading-screen").style.display = "none";
-                        // Zobrazení hlavního obsahu
-                        document.getElementById("main-content").style.display = "block";
-                    }
-                }, 50); // Interval pro zvýšení pokroku
-            } else {
-                alert("Špatné heslo, zkuste to znovu.");
-            }
-        }
-    </script>
+    document.getElementById("employeeBtn").addEventListener("click", function() {
+        document.getElementById("employeeSection").classList.add("visible");
+        document.getElementById("customerSection").classList.remove("visible");
+    });
+</script>
 
 </body>
 </html>
