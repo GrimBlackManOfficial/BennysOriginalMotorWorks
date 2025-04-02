@@ -3,81 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benny's Original Motor Works - Přihláška a Docházka</title>
+    <title>Benny's Original Motor Works - Přihlášky a Docházka</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <h1>Vítejte na stránkách Benny's Original Motor Works!</h1>
-        <p>Pro registraci, docházku a další administrativu prosím vyberte jednu z možností níže:</p>
+        <div class="header-container">
+            <h1>Benny's Original Motor Works</h1>
+            <p>Formuláře pro přihlášky, docházku a fakturaci</p>
+        </div>
     </header>
 
-    <!-- Formulář pro zájemce o práci -->
-    <section id="job-application">
-        <h2>Přihláška na pracovní pozici (Mechanik)</h2>
-        <form action="#" method="POST">
-            <label for="name">Jméno a Příjmení:</label>
-            <input type="text" id="name" name="name" required><br>
+    <!-- Navigace pro sekce -->
+    <nav>
+        <ul>
+            <li><button onclick="openTab('job-application')">Zájem o práci / Spolupráce</button></li>
+            <li><button onclick="openTab('employees')">Zaměstnanci</button></li>
+        </ul>
+    </nav>
 
-            <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" required><br>
+    <!-- Sekce pro zájemce o práci -->
+    <section id="job-application" class="tab-content">
+        <h2>Zájem o práci / Spolupráce</h2>
+        <button onclick="openSubCategory('job-application-form')">Přihláška na pracovní pozici</button>
 
-            <label for="phone">Telefonní číslo:</label>
-            <input type="tel" id="phone" name="phone" required><br>
+        <div id="job-application-form" class="sub-category">
+            <h3>Přihláška na pracovní pozici (Mechanik)</h3>
+            <form action="#" method="POST">
+                <div class="input-group">
+                    <label for="name">Jméno a Příjmení:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
 
-            <label for="cv">Životopis (stručně):</label>
-            <textarea id="cv" name="cv" rows="4" required></textarea><br>
+                <div class="input-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
 
-            <label for="experience">Máte zkušenosti s automechanikou?</label><br>
-            <input type="radio" id="yes" name="experience" value="Ano" required>
-            <label for="yes">Ano</label><br>
-            <input type="radio" id="no" name="experience" value="Ne">
-            <label for="no">Ne</label><br>
+                <div class="input-group">
+                    <label for="phone">Telefonní číslo:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
 
-            <label for="skills">Jaké dovednosti máte?</label><br>
-            <input type="checkbox" id="engine" name="skills" value="Motor">
-            <label for="engine">Motorová technika</label><br>
-            <input type="checkbox" id="bodywork" name="skills" value="Karosérie">
-            <label for="bodywork">Karosářské práce</label><br>
+                <div class="input-group">
+                    <label for="cv">Životopis (stručně):</label>
+                    <textarea id="cv" name="cv" rows="4" required></textarea>
+                </div>
 
-            <label for="availability">Kdy můžete začít pracovat?</label><br>
-            <select id="availability" name="availability">
-                <option value="Okamžitě">Okamžitě</option>
-                <option value="Za týden">Za týden</option>
-                <option value="Za měsíc">Za měsíc</option>
-            </select><br>
+                <div class="input-group">
+                    <label for="experience">Máte zkušenosti s automechanikou?</label><br>
+                    <input type="radio" id="yes" name="experience" value="Ano" required>
+                    <label for="yes">Ano</label><br>
+                    <input type="radio" id="no" name="experience" value="Ne">
+                    <label for="no">Ne</label>
+                </div>
 
-            <label for="terms">Souhlasím se zpracováním osobních údajů:</label>
-            <input type="checkbox" id="terms" name="terms" required><br>
+                <div class="input-group">
+                    <label for="skills">Jaké dovednosti máte?</label><br>
+                    <input type="checkbox" id="engine" name="skills" value="Motor">
+                    <label for="engine">Motorová technika</label><br>
+                    <input type="checkbox" id="bodywork" name="skills" value="Karosérie">
+                    <label for="bodywork">Karosářské práce</label><br>
+                </div>
 
-            <button type="submit">Odeslat přihlášku</button>
-        </form>
+                <div class="input-group">
+                    <label for="availability">Kdy můžete začít pracovat?</label><br>
+                    <select id="availability" name="availability">
+                        <option value="Okamžitě">Okamžitě</option>
+                        <option value="Za týden">Za týden</option>
+                        <option value="Za měsíc">Za měsíc</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="terms">Souhlasím se zpracováním osobních údajů:</label>
+                    <input type="checkbox" id="terms" name="terms" required>
+                </div>
+
+                <button type="submit">Odeslat přihlášku</button>
+            </form>
+        </div>
     </section>
 
-    <hr>
+    <!-- Sekce pro zaměstnance -->
+    <section id="employees" class="tab-content">
+        <h2>Zaměstnanci</h2>
+        <button onclick="openSubCategory('attendance')">Docházka a Faktury</button>
 
-    <!-- Sekce pro docházku a fakturu -->
-    <section id="attendance">
-        <h2>Docházka a Faktury</h2>
-        <form action="#" method="POST">
-            <label for="employee">Jméno zaměstnance:</label>
-            <input type="text" id="employee" name="employee" required><br>
+        <div id="attendance" class="sub-category">
+            <h3>Docházka a Faktury</h3>
+            <form action="#" method="POST">
+                <div class="input-group">
+                    <label for="employee">Jméno zaměstnance:</label>
+                    <input type="text" id="employee" name="employee" required>
+                </div>
 
-            <label for="hours">Počet hodin od - do:</label><br>
-            <input type="time" id="start-time" name="start-time" required> až 
-            <input type="time" id="end-time" name="end-time" required><br>
+                <div class="input-group">
+                    <label for="hours">Počet hodin od - do:</label><br>
+                    <input type="time" id="start-time" name="start-time" required> až 
+                    <input type="time" id="end-time" name="end-time" required>
+                </div>
 
-            <label for="invoice">Faktura za tuning (v $):</label>
-            <input type="number" id="invoice" name="invoice" required><br>
+                <div class="input-group">
+                    <label for="invoice">Faktura za tuning (v $):</label>
+                    <input type="number" id="invoice" name="invoice" required>
+                </div>
 
-            <button type="submit">Zaznamenat docházku a fakturu</button>
-        </form>
+                <button type="submit">Zaznamenat docházku a fakturu</button>
+            </form>
+        </div>
     </section>
 
-    <footer>
-        <p>&copy; 2025 Benny's Original Motor Works</p>
-    </footer>
+    <!-- JavaScript pro změnu obsahu -->
+    <script>
+        function openTab(tabId) {
+            // Skryj všechny taby
+            let tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.style.display = 'none';
+            });
+
+            // Zobraz požadovaný tab
+            let activeTab = document.getElementById(tabId);
+            activeTab.style.display = 'block';
+        }
+
+        function openSubCategory(subCategoryId) {
+            // Skryj všechny podkategorie
+            let subCategories = document.querySelectorAll('.sub-category');
+            subCategories.forEach(subCategory => {
+                subCategory.style.display = 'none';
+            });
+
+            // Zobraz požadovanou podkategorii
+            let activeSubCategory = document.getElementById(subCategoryId);
+            activeSubCategory.style.display = 'block';
+        }
+
+        // Spusť první tab při načtení stránky
+        window.onload = () => {
+            openTab('job-application');
+        };
+    </script>
 
 </body>
 </html>
