@@ -4,71 +4,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Výběr - Zákazník nebo Zaměstnanec</title>
+    <title>Benny's Original Motor Works</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- Přidání Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet"> <!-- Moderní písmo -->
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f9;
-            margin: 0;
         }
 
         .container {
-            background-color: #fff;
+            width: 90%;
+            max-width: 600px;
+            background-color: white;
+            padding: 20px;
             border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 300px;
-            transition: all 0.3s ease;
         }
 
         h1 {
-            font-size: 24px;
+            font-family: 'Roboto', sans-serif;
+            color: #e74c3c; /* Červená barva */
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
             color: #333;
         }
 
-        button {
-            margin: 15px 0;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
+        .category a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            margin: 10px;
+            text-decoration: none;
+            font-size: 18px;
             border-radius: 5px;
-            cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
-        button:hover {
-            background-color: #45a049;
+        .category a.zakaznik {
+            background-color: #28a745;
+            color: white;
         }
 
-        .hidden {
-            display: none;
+        .category a.zakaznik:hover {
+            background-color: #218838;
+        }
+
+        .category a.zamestnanec {
+            background-color: #fd7e14;
+            color: white;
+        }
+
+        .category a.zamestnanec:hover {
+            background-color: #e67e22;
+        }
+
+        .category a i {
+            margin-right: 10px; /* Mezera mezi ikonou a textem */
+        }
+
+        .category a:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Vyberte možnost</h1>
-        <button id="customer-btn">Jsem Zákazník</button>
-        <button id="employee-btn">Jsem Zaměstnanec</button>
+        <h1>Benny's Original Motor Works</h1> <!-- Titulní název v červené barvě -->
+        <h2>Vyberte možnost</h2>
+        <div class="category">
+            <a href="zakaznik.html" class="zakaznik"><i class="fas fa-user"></i> Jsem Zákazník</a> <!-- Ikona pro Zákazníka -->
+        </div>
+        <div class="category">
+            <a href="zamestnanec.html" class="zamestnanec"><i class="fas fa-tools"></i> Jsem Zaměstnanec</a> <!-- Ikona pro Zaměstnance -->
+        </div>
     </div>
-
-    <script>
-        document.getElementById('customer-btn').addEventListener('click', function () {
-            window.location.href = 'zakaznik.html'; // Přesměrování na stránku pro zákazníka
-        });
-
-        document.getElementById('employee-btn').addEventListener('click', function () {
-            window.location.href = 'zamestnanec.html'; // Přesměrování na stránku pro zaměstnance
-        });
-    </script>
 </body>
 
 </html>
