@@ -35,24 +35,19 @@
             font-size: 20px;
         }
 
-        .lds-dual-ring {
-            display: inline-block;
-            width: 64px;
-            height: 64px;
-            border: 8px solid #f3f3f3;
+        /* Loading icon from zakaznik.html */
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
             border-radius: 50%;
-            border-top: 8px solid #3498db;
-            animation: lds-dual-ring 1.2s linear infinite;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
         }
 
-        @keyframes lds-dual-ring {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .container {
@@ -111,7 +106,7 @@
 </head>
 <body>
     <div id="loading">
-        <div class="lds-dual-ring"></div>
+        <div class="loader"></div>
         <span id="loading-text">Načítání systému...</span>
     </div>
     
