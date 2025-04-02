@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zákaznický systém</title>
+    <title>Bennys Original Motor Works - Zákazník</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
             background-color: #2C2F33;
             color: white;
             margin: 0;
@@ -18,51 +17,150 @@
             align-items: center;
             height: 100vh;
         }
+
         .container {
             background: #23272A;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            display: none;
         }
+
         h1 {
             color: red;
             font-size: 2em;
         }
-        .loading {
-            font-size: 1.5em;
+
+        button {
+            display: block;
+            width: 200px;
+            padding: 10px;
+            margin: 10px auto;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-job {
+            background-color: green;
             color: white;
         }
-        .spinner {
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top: 5px solid white;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
+
+        .btn-cooperation {
+            background-color: orange;
+            color: white;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+        }
+
+        #loading div {
+            margin-top: 20px;
+        }
+
+        #loading span {
+            font-size: 20px;
+        }
+
+        .lds-spinner {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .lds-spinner div {
+            animation: lds-spinner 1.2s linear infinite;
+            transform-origin: 40px 40px;
+        }
+
+        .lds-spinner div:after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 3px;
+            left: 37px;
+            width: 6px;
+            height: 18px;
+            border-radius: 20%;
+            background: #f3f3f3;
+        }
+
+        .lds-spinner div:nth-child(1) {
+            animation-delay: -1.1s;
+        }
+
+        .lds-spinner div:nth-child(2) {
+            animation-delay: -1s;
+        }
+
+        .lds-spinner div:nth-child(3) {
+            animation-delay: -0.9s;
+        }
+
+        .lds-spinner div:nth-child(4) {
+            animation-delay: -0.8s;
+        }
+
+        .lds-spinner div:nth-child(5) {
+            animation-delay: -0.7s;
+        }
+
+        .lds-spinner div:nth-child(6) {
+            animation-delay: -0.6s;
+        }
+
+        .lds-spinner div:nth-child(7) {
+            animation-delay: -0.5s;
+        }
+
+        .lds-spinner div:nth-child(8) {
+            animation-delay: -0.4s;
+        }
+
+        @keyframes lds-spinner {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
 <body>
-    <div id="loading-screen">
-        <div class="spinner"></div>
-        <p class="loading" id="loading-text">Připojuji zákaznický systém...</p>
+    <div id="loading">
+        <div class="lds-spinner">
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+        <span>Připojuji zákaznický systém...</span>
     </div>
-    <div class="container" id="main-content">
-        <h1>Zákaznický systém</h1>
-        <button class="btn-customer" onclick="location.href='zajem_o_praci.html'">💼 Zájem o práci</button>
-        <button class="btn-customer" onclick="location.href='zajem_o_spolupraci.html'">🤝 Zájem o spolupráci</button>
+    
+    <div class="container" id="content" style="display: none;">
+        <h1>Bennys Original Motor Works - Zákazník</h1>
+        <button class="btn-job" onclick="window.location.href='form_zajem_o_praci.html'">Zájem o práci</button>
+        <button class="btn-cooperation" onclick="window.location.href='form_zajem_o_spolupraci.html'">Zájem o spolupráci</button>
     </div>
+
     <script>
-        setTimeout(() => {
-            document.getElementById('loading-screen').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-        }, 3000);
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            }, 3000); // 3 seconds delay for loading
+        };
     </script>
 </body>
 </html>
