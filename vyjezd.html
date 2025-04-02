@@ -7,79 +7,34 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             background-color: #2C2F33;
             color: white;
+            margin: 0;
+            padding: 0;
         }
-
-        /* Loading Screen */
-        #loading {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .container {
             width: 100%;
-            height: 100%;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            z-index: 9999;
             flex-direction: column;
-        }
-
-        .loader {
-            border: 16px solid #f3f3f3;
-            border-top: 16px solid #3498db;
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            animation: spin 2s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        #loading-text {
-            margin-top: 20px;
-            font-size: 24px;
-            animation: fadeInOut 1s infinite;
-        }
-
-        @keyframes fadeInOut {
-            0% { opacity: 0; }
-            25% { opacity: 1; }
-            50% { opacity: 0; }
-            75% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        /* Main Content */
-        .container {
-            text-align: center;
             padding: 20px;
+        }
+        .box {
             background-color: #23272A;
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            display: none; /* Hidden until loading is complete */
-            position: relative;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
         }
-
         h1 {
             color: red;
-            font-size: 2em;
+            margin-bottom: 20px;
         }
-
         button {
-            display: inline-block;
             padding: 10px 20px;
             margin: 10px;
             border: none;
@@ -87,203 +42,202 @@
             font-size: 16px;
             cursor: pointer;
             transition: 0.3s;
-            position: relative;
         }
-
         .btn-start {
             background-color: green;
             color: white;
         }
-
         .btn-end {
             background-color: orange;
             color: white;
         }
-
         .btn-panic {
             background-color: red;
             color: white;
         }
-
         .btn-logout {
-            background-color: #555;
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            background-color: gray;
             color: white;
         }
-
-        button:hover {
-            opacity: 0.8;
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
-
-        /* Button Group for "Start" and "End" next to each other */
-        .button-group {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-        }
-
-        /* Button Icons */
-        .btn-start::before {
-            content: "▶"; /* Start Icon */
-            margin-right: 8px;
-        }
-
-        .btn-end::before {
-            content: "⏹"; /* Stop Icon */
-            margin-right: 8px;
-        }
-
-        .btn-panic::before {
-            content: "⚠️"; /* Panic Icon */
-            margin-right: 8px;
-        }
-
-        .btn-logout::before {
-            content: "🚪"; /* Logout Icon */
-            margin-right: 8px;
-        }
-
-        /* Logout button positioned at the bottom right */
-        .btn-logout {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-        }
-
-        /* Stopwatch Styling */
-        .stopwatch {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 24px;
-            font-family: 'Courier New', Courier, monospace;
-            color: #fff;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 10px 20px;
-            border-radius: 10px;
-            display: none; /* Initially hidden */
-        }
-
-        /* Stopwatch Button Styling */
-        .stopwatch-btn {
-            font-size: 20px;
-            cursor: pointer;
+        table {
+            width: 100%;
             margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+        .timer {
+            font-size: 2em;
+            margin-top: 20px;
+            color: yellow;
         }
 
-        /* Stop Button Styling */
-        .stopwatch-btn {
-            margin-top: 20px;
+        /* Animace pro blikání textu */
+        @keyframes blink {
+            0% {
+                color: red;
+            }
+            50% {
+                color: white;
+            }
+            100% {
+                color: red;
+            }
+        }
+
+        .blinking {
+            animation: blink 1s infinite; /* Blikání každou sekundu */
         }
     </style>
 </head>
 <body>
 
-    <!-- Loading Screen -->
-    <div id="loading">
-        <div class="loader"></div>
-        <span id="loading-text">Připojuji tablet odtahové služby...</span>
-    </div>
-
-    <!-- Main Content (hidden initially) -->
     <div class="container">
-        <h1>Benny's TowDispatch</h1>
-        
-        <!-- Button Group (Start and End buttons next to each other) -->
-        <div class="button-group">
-            <button class="btn-start" onclick="startEmergency()">Start Výjezdu</button>
-            <button class="btn-end" onclick="endEmergency()">Ukončit Výjezd</button>
+        <div class="box">
+            <h1>Benny's TowDispatch</h1>
+
+            <!-- Input pro postal -->
+            <input type="text" id="postal" placeholder="Zadejte postal (kam jedeme)" />
+
+            <!-- Tlačítka pro ovládání výjezdu -->
+            <button class="btn-start" onclick="startTow()">Start Výjezdu</button>
+            <button class="btn-end" onclick="endTow()">Konec Výjezdu</button>
+            <button class="btn-panic" onclick="panicButton()">PANIC BUTTON</button>
+
+            <!-- Tlačítko pro odhlášení z výjezdu -->
+            <button class="btn-logout" onclick="logout()">Odhlásit se z výjezdu</button>
+
+            <!-- Stopky -->
+            <div class="timer" id="timer">00:00</div>
+
+            <!-- Tabulka pro zobrazení aktivního výjezdu -->
+            <h2>Aktivní výjezdy</h2>
+            <table id="activeTowTable">
+                <thead>
+                    <tr>
+                        <th>Postal</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Zde se budou dynamicky přidávat výjezdy -->
+                </tbody>
+            </table>
         </div>
-
-        <!-- Panic Button -->
-        <button class="btn-panic" onclick="panicButton()">PANIC BUTTON!</button>
-
-        <!-- Logout Button positioned at bottom-right corner -->
-        <button class="btn-logout" onclick="logout()">Odhlásit se z výjezdu</button>
-    </div>
-
-    <!-- Stopwatch -->
-    <div id="stopwatch" class="stopwatch">
-        <span id="time">00:00:00</span>
     </div>
 
     <script>
-        // Simulate the loading sequence with text changing
-        let loadingText = document.getElementById("loading-text");
-        let loading = document.getElementById("loading");
-        let container = document.querySelector(".container");
+        let timer;
+        let isTowActive = false;
+        let startTime;
+        let interval;
+        let activeTows = [];
 
-        let texts = [
-            "Připojuji tablet odtahové služby...",
-            "Získávám data...",
-            "Připojuji do systému..."
-        ];
-        let textIndex = 0;
-
-        function changeText() {
-            loadingText.textContent = texts[textIndex];
-            textIndex++;
-            if (textIndex >= texts.length) {
-                setTimeout(function() {
-                    loading.style.display = 'none'; // Hide loading screen
-                    container.style.display = 'block'; // Show main content
-                }, 1000);
+        // Funkce pro začátek výjezdu
+        function startTow() {
+            const postal = document.getElementById('postal').value;
+            if (postal === "") {
+                alert("Prosím zadejte postal.");
+                return;
             }
-        }
 
-        setInterval(changeText, 1000); // Change text every 1 second
-
-        // Stopwatch Variables
-        let stopwatchInterval;
-        let timeElapsed = 0; // In seconds
-        let running = false;
-
-        function startStopwatch() {
-            if (!running) {
-                running = true;
-                stopwatchInterval = setInterval(function() {
-                    timeElapsed++;
-                    let hours = Math.floor(timeElapsed / 3600);
-                    let minutes = Math.floor((timeElapsed % 3600) / 60);
-                    let seconds = timeElapsed % 60;
-                    document.getElementById("time").textContent = 
-                        (hours < 10 ? "0" : "") + hours + ":" +
-                        (minutes < 10 ? "0" : "") + minutes + ":" +
-                        (seconds < 10 ? "0" : "") + seconds;
-                }, 1000);
+            if (isTowActive) {
+                alert("Výjezd je již aktivní!");
+                return;
             }
+
+            isTowActive = true;
+            startTime = Date.now();
+            activeTows.push({ postal, status: "Výjezd v provozu" });
+            updateTowTable();
+            startTimer();
         }
 
-        function stopStopwatch() {
-            if (running) {
-                running = false;
-                clearInterval(stopwatchInterval);
+        // Funkce pro ukončení výjezdu
+        function endTow() {
+            if (!isTowActive) {
+                alert("Žádný výjezd není aktivní!");
+                return;
             }
+
+            isTowActive = false;
+            clearInterval(interval);
+            resetTimer();
+            activeTows[activeTows.length - 1].status = "Výjezd ukončen";
+            updateTowTable();
         }
 
-        function resetStopwatch() {
-            timeElapsed = 0;
-            document.getElementById("time").textContent = "00:00:00";
-        }
-
-        function startEmergency() {
-            document.getElementById("stopwatch").style.display = "block"; // Show stopwatch
-            startStopwatch();
-        }
-
-        function endEmergency() {
-            stopStopwatch();
-            resetStopwatch(); // Reset stopwatch when the emergency ends
-        }
-
+        // Funkce pro PANIC BUTTON
         function panicButton() {
-            alert("Panic Button stisknut!");
+            alert("PANIC BUTTON stisknut!");
+            // Zastaví stopky a změní status výjezdu na PANIC BUTTON
+            clearInterval(interval);
+            resetTimer();
+            activeTows[activeTows.length - 1].status = "PANIC BUTTON";
+            updateTowTable();
         }
 
+        // Funkce pro odhlášení z výjezdu (přesměrování na zamestnanec.html)
         function logout() {
-            window.location.href = "zamestnanec.html"; // Redirect to employee page
+            isTowActive = false;
+            clearInterval(interval);
+            resetTimer();
+            activeTows = [];
+            updateTowTable();
+            window.location.href = "zamestnanec.html"; // Přesměrování na zamestnanec.html
+        }
+
+        // Funkce pro restartování stopky
+        function resetTimer() {
+            document.getElementById('timer').innerHTML = "00:00";
+        }
+
+        // Funkce pro aktualizaci tabulky
+        function updateTowTable() {
+            const tableBody = document.getElementById('activeTowTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ""; // Vyčistí tabulku
+
+            activeTows.forEach(tow => {
+                const row = tableBody.insertRow();
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                cell1.innerHTML = tow.postal;
+                cell2.innerHTML = tow.status;
+
+                // Pokud je status PANIC BUTTON, přidej animaci blikání
+                if (tow.status === "PANIC BUTTON") {
+                    row.cells[1].classList.add("blinking");
+                }
+            });
+        }
+
+        // Funkce pro stopky
+        function startTimer() {
+            interval = setInterval(() => {
+                const elapsedTime = Date.now() - startTime;
+                const minutes = Math.floor(elapsedTime / 60000);
+                const seconds = Math.floor((elapsedTime % 60000) / 1000);
+                document.getElementById('timer').innerHTML = `${pad(minutes)}:${pad(seconds)}`;
+            }, 1000);
+        }
+
+        // Funkce pro přidání nuly k jednociferným číslům
+        function pad(num) {
+            return num < 10 ? '0' + num : num;
         }
     </script>
-
 </body>
 </html>
