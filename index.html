@@ -69,6 +69,7 @@
         <h2>Zákazník</h2>
         <button class="button" onclick="window.location.href='#'">Zájem o práci</button>
         <button class="button" onclick="window.location.href='#'">Zájem o spolupráci</button>
+        <button class="button" id="backFromCustomer">Zpět</button>
     </div>
 
     <!-- Sekce pro zaměstnanca -->
@@ -76,8 +77,18 @@
         <h2>Zaměstnanec</h2>
         <button class="button" onclick="window.location.href='#'">Fakturování</button>
         <button class="button" onclick="window.location.href='#'">Docházka</button>
-        <button class="button" onclick="window.location.href='#'">Výjezdy odtahové služby</button>
+        <button class="button" id="showTowButton">Výjezdy odtahové služby</button>
         <button class="button" onclick="window.location.href='#'">Panic Button</button>
+        <button class="button" id="backFromEmployee">Zpět</button>
+    </div>
+
+    <!-- Sekce pro výjezdy odtahové služby -->
+    <div id="towServiceSection" class="section">
+        <h2>Výjezdy odtahové služby</h2>
+        <button class="button" onclick="window.location.href='#'">Výjezd</button>
+        <button class="button" onclick="window.location.href='#'">Konec výjezdu</button>
+        <button class="button" onclick="window.location.href='#'">Panic Button</button>
+        <button class="button" id="backFromTowService">Zpět</button>
     </div>
 </div>
 
@@ -86,7 +97,6 @@
     document.getElementById("customerBtn").addEventListener("click", function() {
         document.getElementById("customerSection").classList.add("visible");
         document.getElementById("employeeSection").classList.remove("visible");
-        // Skrýt možnost výběru po zvolení zákazníka
         document.getElementById("customerBtn").style.display = "none";
         document.getElementById("employeeBtn").style.display = "none";
     });
@@ -94,9 +104,34 @@
     document.getElementById("employeeBtn").addEventListener("click", function() {
         document.getElementById("employeeSection").classList.add("visible");
         document.getElementById("customerSection").classList.remove("visible");
-        // Skrýt možnost výběru po zvolení zaměstnance
         document.getElementById("customerBtn").style.display = "none";
         document.getElementById("employeeBtn").style.display = "none";
+    });
+
+    // Zobrazení sekce výjezdů odtahové služby
+    document.getElementById("showTowButton").addEventListener("click", function() {
+        document.getElementById("towServiceSection").classList.add("visible");
+        document.getElementById("employeeSection").classList.remove("visible");
+    });
+
+    // Zpět pro zákazníka
+    document.getElementById("backFromCustomer").addEventListener("click", function() {
+        document.getElementById("customerSection").classList.remove("visible");
+        document.getElementById("customerBtn").style.display = "block";
+        document.getElementById("employeeBtn").style.display = "block";
+    });
+
+    // Zpět pro zaměstnance
+    document.getElementById("backFromEmployee").addEventListener("click", function() {
+        document.getElementById("employeeSection").classList.remove("visible");
+        document.getElementById("customerBtn").style.display = "block";
+        document.getElementById("employeeBtn").style.display = "block";
+    });
+
+    // Zpět pro výjezdy odtahové služby
+    document.getElementById("backFromTowService").addEventListener("click", function() {
+        document.getElementById("towServiceSection").classList.remove("visible");
+        document.getElementById("employeeSection").classList.add("visible");
     });
 </script>
 
