@@ -86,11 +86,17 @@
     document.getElementById("customerBtn").addEventListener("click", function() {
         document.getElementById("customerSection").classList.add("visible");
         document.getElementById("employeeSection").classList.remove("visible");
+        // Skrýt možnost výběru po zvolení zákazníka
+        document.getElementById("customerBtn").style.display = "none";
+        document.getElementById("employeeBtn").style.display = "none";
     });
 
     document.getElementById("employeeBtn").addEventListener("click", function() {
         document.getElementById("employeeSection").classList.add("visible");
         document.getElementById("customerSection").classList.remove("visible");
+        // Skrýt možnost výběru po zvolení zaměstnance
+        document.getElementById("customerBtn").style.display = "none";
+        document.getElementById("employeeBtn").style.display = "none";
     });
 </script>
 
