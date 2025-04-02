@@ -205,9 +205,50 @@
 </div>
 
 <script>
-    // Funkce pro zobrazování a skrývání sekcí
+    // Funkce pro zobrazení sekcí
     document.getElementById("customerBtn").addEventListener("click", function() {
         document.getElementById("customerSection").classList.add("visible");
         document.getElementById("employeeSection").classList.remove("visible");
         document.getElementById("customerBtn").style.display = "none";
-        document.getElementById("employeeBtn").style
+        document.getElementById("employeeBtn").style.display = "none";
+    });
+
+    document.getElementById("interestJobBtn").addEventListener("click", function() {
+        document.getElementById("jobInterestForm").classList.add("visible");
+        document.getElementById("customerSection").classList.remove("visible");
+    });
+
+    document.getElementById("interestCooperationBtn").addEventListener("click", function() {
+        document.getElementById("cooperationForm").classList.add("visible");
+        document.getElementById("customerSection").classList.remove("visible");
+    });
+
+    document.getElementById("backFromCustomer").addEventListener("click", function() {
+        document.getElementById("customerSection").classList.remove("visible");
+        document.getElementById("customerBtn").style.display = "inline";
+        document.getElementById("employeeBtn").style.display = "inline";
+    });
+
+    // Formulář pro "Pokračovat"
+    document.getElementById("continueJob").addEventListener("click", function() {
+        document.getElementById("processingConsent").classList.add("visible");
+        document.getElementById("jobInterestForm").classList.remove("visible");
+    });
+
+    document.getElementById("continueCooperation").addEventListener("click", function() {
+        document.getElementById("processingConsent").classList.add("visible");
+        document.getElementById("cooperationForm").classList.remove("visible");
+    });
+    
+    // Zpracování osobních údajů
+    document.getElementById("yesConsent").addEventListener("click", function() {
+        alert("Formulář byl odeslán.");
+    });
+
+    document.getElementById("noConsent").addEventListener("click", function() {
+        alert("Omlouváme se, ale bez souhlasu nemůžeme pokračovat.");
+    });
+</script>
+
+</body>
+</html>
