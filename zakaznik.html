@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bennys Original Motor Works - Zákazník</title>
+    <title>Zákaznický Systém</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -61,8 +61,10 @@
             justify-content: center;
         }
 
-        .btn-job i, .btn-cooperation i {
+        .btn-job svg, .btn-cooperation svg {
             margin-right: 10px;
+            width: 20px;
+            height: 20px;
         }
 
         button:hover {
@@ -165,10 +167,16 @@
     <div class="container" id="content" style="display: none;">
         <h1>Bennys Original Motor Works - Zákazník</h1>
         <button class="btn-job" onclick="window.location.href='form_zajem_o_praci.html'">
-            <i class="fas fa-briefcase"></i> Zájem o práci
+            <!-- Ikona pro práci -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm-1-15h2v6h-2zm0 8h2v2h-2z"/>
+            </svg> Zájem o práci
         </button>
         <button class="btn-cooperation" onclick="window.location.href='form_zajem_o_spolupraci.html'">
-            <i class="fas fa-handshake"></i> Zájem o spolupráci
+            <!-- Ikona pro spolupráci -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 16h-2v-6h2v6zm0-8h-2V7h2v3z"/>
+            </svg> Zájem o spolupráci
         </button>
     </div>
 
@@ -180,6 +188,5 @@
             }, 3000); // 3 seconds delay for loading
         };
     </script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- FontAwesome for icons -->
 </body>
 </html>
