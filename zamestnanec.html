@@ -8,52 +8,56 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f9;
+            background-color: #f4f4f4;
             margin: 0;
+            padding: 0;
         }
 
         .container {
-            background-color: #fff;
+            width: 90%;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
             border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 400px;
-            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
 
-        h1 {
-            font-size: 24px;
+        h2 {
+            text-align: center;
             color: #333;
         }
 
-        button {
-            margin: 10px 0;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
+        .category {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .category a {
+            display: block;
+            background-color: #007bff;
             color: white;
-            border: none;
+            padding: 15px;
+            margin: 10px;
+            text-decoration: none;
             border-radius: 5px;
-            cursor: pointer;
+            font-size: 18px;
             transition: background-color 0.3s ease;
         }
 
-        button:hover {
-            background-color: #45a049;
+        .category a:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Jako zaměstnanec máte tyto možnosti:</h1>
-        <button>Docházka</button>
-        <button>Fakturování</button>
+        <h2>Vítejte, zaměstnanec!</h2>
+
+        <div class="category">
+            <a href="vyjezd.html">Výjezd Odtahové Služby</a>
+        </div>
     </div>
 </body>
 
