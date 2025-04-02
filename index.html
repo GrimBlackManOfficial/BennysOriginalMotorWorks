@@ -7,6 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #2C2F33;
+            color: white;
             margin: 0;
             padding: 0;
             display: flex;
@@ -14,26 +16,26 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #2C2F33;
-            color: white;
         }
 
-        /* Loading Screen */
         #loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
             color: white;
-            z-index: 9999;
-            flex-direction: column;
         }
 
+        #loading div {
+            margin-top: 20px;
+        }
+
+        #loading span {
+            font-size: 20px;
+        }
+
+        /* Loading icon from zakaznik.html */
         .loader {
             border: 16px solid #f3f3f3;
             border-top: 16px solid #3498db;
@@ -48,25 +50,9 @@
             100% { transform: rotate(360deg); }
         }
 
-        #loading-text {
-            margin-top: 20px;
-            font-size: 24px;
-            animation: fadeInOut 1s infinite;
-        }
-
-        @keyframes fadeInOut {
-            0% { opacity: 0; }
-            25% { opacity: 1; }
-            50% { opacity: 0; }
-            75% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        /* Main Content */
         .container {
-            text-align: center;
+            background: #23272A;
             padding: 20px;
-            background-color: #23272A;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             display: none; /* Hidden until loading is complete */
@@ -79,72 +65,81 @@
 
         button {
             display: block;
-            width: 200px;
-            padding: 10px;
+            width: 250px;
+            padding: 12px;
             margin: 10px auto;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 18px;
             cursor: pointer;
             transition: 0.3s;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .btn-customer {
             background-color: green;
             color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-employee {
             background-color: orange;
             color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-customer i, .btn-employee i {
+            margin-right: 10px;
         }
 
         button:hover {
             opacity: 0.8;
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
-
-    <!-- Loading Screen -->
     <div id="loading">
         <div class="loader"></div>
         <span id="loading-text">Načítání systému...</span>
     </div>
-
-    <!-- Main Content (hidden initially) -->
-    <div class="container">
+    
+    <div class="container" id="content">
         <h1>Bennys Original Motor Works</h1>
         <button class="btn-customer" onclick="location.href='zakaznik.html'">🚶 Jsem zákazník</button>
         <button class="btn-employee" onclick="location.href='zamestnanec.html'">🛠️ Jsem zaměstnanec</button>
     </div>
 
     <script>
-        // Simulate the loading sequence with text changing
-        let loadingText = document.getElementById("loading-text");
-        let loading = document.getElementById("loading");
-        let container = document.querySelector(".container");
-
-        let texts = [
+        let loadingTexts = [
             "Načítání systému...",
             "Získávám data...",
             "Připojuji do systému..."
         ];
-        let textIndex = 0;
 
-        function changeText() {
-            loadingText.textContent = texts[textIndex];
-            textIndex++;
-            if (textIndex >= texts.length) {
-                setTimeout(function() {
-                    loading.style.display = 'none'; // Hide loading screen
-                    container.style.display = 'block'; // Show main content
-                }, 1000);
-            }
-        }
+        let currentTextIndex = 0;
+        
+        window.onload = function() {
+            let loadingTextElement = document.getElementById('loading-text');
+            setTimeout(function() {
+                loadingTextElement.textContent = loadingTexts[currentTextIndex];
+                currentTextIndex++;
+                if (currentTextIndex < loadingTexts.length) {
+                    setTimeout(arguments.callee, 2000);  // Change text every 2 seconds
+                }
+            }, 2000); // Start changing after 2 seconds
 
-        setInterval(changeText, 2000); // Change text every 2 seconds
+            setTimeout(function() {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            }, 6000); // 6 seconds total for loading animation
+        };
     </script>
-
 </body>
 </html>
