@@ -32,28 +32,37 @@
 
         button {
             display: block;
-            width: 200px;
-            padding: 10px;
+            width: 250px;
+            padding: 12px;
             margin: 10px auto;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 18px;
             cursor: pointer;
             transition: 0.3s;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .btn-job {
-            background-color: green;
+            background-color: #4CAF50; /* Green */
             color: white;
-            font-weight: bold;
-            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-cooperation {
-            background-color: orange;
+            background-color: #FF5722; /* Orange */
             color: white;
-            font-weight: bold;
-            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-job i, .btn-cooperation i {
+            margin-right: 10px;
         }
 
         button:hover {
@@ -155,8 +164,12 @@
     
     <div class="container" id="content" style="display: none;">
         <h1>Bennys Original Motor Works - Zákazník</h1>
-        <button class="btn-job" onclick="window.location.href='form_zajem_o_praci.html'">Zájem o práci</button>
-        <button class="btn-cooperation" onclick="window.location.href='form_zajem_o_spolupraci.html'">Zájem o spolupráci</button>
+        <button class="btn-job" onclick="window.location.href='form_zajem_o_praci.html'">
+            <i class="fas fa-briefcase"></i> Zájem o práci
+        </button>
+        <button class="btn-cooperation" onclick="window.location.href='form_zajem_o_spolupraci.html'">
+            <i class="fas fa-handshake"></i> Zájem o spolupráci
+        </button>
     </div>
 
     <script>
@@ -167,6 +180,6 @@
             }, 3000); // 3 seconds delay for loading
         };
     </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- FontAwesome for icons -->
 </body>
 </html>
-
