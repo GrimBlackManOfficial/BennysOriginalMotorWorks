@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="style.css">
-<
-!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -64,6 +64,7 @@
             align-items: center;
             flex-direction: column;
             z-index: 9999;
+            display: none;
         }
 
         .loading-text {
@@ -210,7 +211,7 @@
     </div>
 
     <!-- Loading Screen -->
-    <div class="loading-screen" id="loading-screen" style="display:none;">
+    <div class="loading-screen" id="loading-screen">
         <div class="loading-text" id="loading-text">Připojování do systému...</div>
         <div class="progress-bar-container">
             <div class="progress-bar" id="progress-bar"></div>
@@ -218,7 +219,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="content" id="main-content" style="display:none;">
+    <div class="content" id="main-content">
         <div class="header">
             <h1>Bennys Original Motor Works</h1>
         </div>
@@ -231,57 +232,39 @@
             <div class="menu-item" id="invoice-menu">Evidence faktury</div>
             <div class="menu-item" id="attendance-menu">Evidence docházky</div>
         </div>
-
-        <!-- Sekce pro přihlášení -->
-        <div class="section" id="login-section">
-            <h2>Přihlášení</h2>
-            <form>
-                <label for="username">Uživatelské jméno:</label>
-                <input type="text" id="username" name="username">
-                <label for="password">Heslo:</label>
-                <input type="password" id="password" name="password">
-                <button type="submit">Přihlásit</button>
-            </form>
-        </div>
-
-        <!-- Sekce pro zájem o práci -->
-        <div class="section" id="job-application-section">
-            <h2>Zájem o práci</h2>
-            <form>
-                <label for="name">Jméno:</label>
-                <input type="text" id="name" name="name">
-                <label for="cv">Životopis:</label>
-                <textarea id="cv" name="cv"></textarea>
-                <button type="submit">Odeslat přihlášku</button>
-            </form>
-        </div>
-
-        <!-- Sekce pro zájem o spolupráci -->
-        <div class="section" id="collaboration-section">
-            <h2>Zájem o spolupráci</h2>
-            <form>
-                <label for="collaboration-info">Informace o spolupráci:</label>
-                <textarea id="collaboration-info" name="collaboration-info"></textarea>
-                <button type="submit">Odeslat spolupráci</button>
-            </form>
-        </div>
-
-        <!-- Sekce pro evidence faktury -->
-        <div class="section" id="invoice-section">
-            <h2>Evidence faktury za tuning</h2>
-            <form>
-                <label for="invoice-amount">Částka:</label>
-                <input type="number" id="invoice-amount" name="invoice-amount">
-                <button type="submit">Odeslat fakturu</button>
-            </form>
-        </div>
-
-        <!-- Sekce pro evidence docházky -->
-        <div class="section" id="attendance-section">
-            <h2>Evidence docházky</h2>
-            <button onclick="startShift()">Start směny</button>
-            <button onclick="endShift()">Konec směny</button>
-        </div>
     </div>
 
-    <script
+    <script>
+        // Funkce pro kontrolu hesla
+        function checkPassword() {
+            var enteredPassword = document.getElementById("password").value;
+            var correctPassword = "1234"; // Správné heslo
+
+            if (enteredPassword === correctPassword) {
+                // Skrýt obrazovku pro zadání hesla
+                document.getElementById("password-screen").style.display = "none";
+
+                // Zobrazit loading obrazovku
+                document.getElementById("loading-screen").style.display = "flex";
+
+                // Simulace loading procesu
+                var progress = 0;
+                var interval = setInterval(function() {
+                    progress += 2; // Zvýšení pokroku
+                    document.getElementById("progress-bar").style.width = progress + "%";
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        // Skrytí loading obrazovky
+                        document.getElementById("loading-screen").style.display = "none";
+                        // Zobrazení hlavního obsahu
+                        document.getElementById("main-content").style.display = "block";
+                    }
+                }, 50); // Interval pro zvýšení pokroku
+            } else {
+                alert("Špatné heslo, zkuste to znovu.");
+            }
+        }
+    </script>
+
+</body>
+</html>
