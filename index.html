@@ -268,3 +268,27 @@
                 <div class="form-container">
                     <button onclick="startShift()">Start směny</button>
                     <button onclick="endShift()">Konec směny</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleCategory(categoryId) {
+            var category = document.getElementById(categoryId);
+            category.classList.toggle("active");
+        }
+
+        function toggleContent(categoryId) {
+            var category = document.getElementById(categoryId);
+            var icon = category.querySelector(".toggle-icon");
+            if (category.classList.contains("active")) {
+                icon.textContent = "↓";
+            } else {
+                icon.textContent = "↑";
+            }
+            toggleCategory(categoryId);
+        }
+
+        function startShift() {
+            alert("Sm
