@@ -261,6 +261,11 @@
             }
         }
 
+        function resetStopwatch() {
+            timeElapsed = 0;
+            document.getElementById("time").textContent = "00:00:00";
+        }
+
         function startEmergency() {
             document.getElementById("stopwatch").style.display = "block"; // Show stopwatch
             startStopwatch();
@@ -268,6 +273,7 @@
 
         function endEmergency() {
             stopStopwatch();
+            resetStopwatch(); // Reset stopwatch when the emergency ends
         }
 
         function panicButton() {
