@@ -4,59 +4,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zaměstnanec</title>
+    <title>Zaměstnanec - Benny's Original Motor Works</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet"> <!-- Google Fonts -->
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .container {
             width: 90%;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
+            max-width: 600px;
             background-color: white;
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-
-        .category {
-            margin: 20px 0;
-            text-align: center;
+        h1 {
+            font-family: 'Roboto', sans-serif;
+            color: #e74c3c; /* Červená barva */
+            font-size: 36px;
+            margin-bottom: 20px;
         }
 
         .category a {
-            display: block;
-            background-color: #007bff;
-            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 15px;
             margin: 10px;
             text-decoration: none;
-            border-radius: 5px;
             font-size: 18px;
+            border-radius: 5px;
             transition: background-color 0.3s ease;
         }
 
-        .category a:hover {
-            background-color: #0056b3;
+        /* Tlačítka pro různé sekce */
+        .category a.vyjezd {
+            background-color: #fd7e14; /* Oranžová */
+            color: white;
+        }
+
+        .category a.vyjezd:hover {
+            background-color: #e67e22;
+        }
+
+        .category a.dochazka {
+            background-color: #ffffff; /* Bílá */
+            color: #333;
+            border: 1px solid #ccc;
+        }
+
+        .category a.dochazka:hover {
+            background-color: #f1f1f1;
+        }
+
+        .category a.faktury {
+            background-color: #bdc3c7; /* Šedivá */
+            color: white;
+        }
+
+        .category a.faktury:hover {
+            background-color: #95a5a6;
+        }
+
+        .category a i {
+            margin-right: 10px; /* Mezera mezi ikonou a textem */
+        }
+
+        .category a:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h2>Vítejte, zaměstnanec!</h2>
+        <h1>Zaměstnanec - Benny's Original Motor Works</h1>
 
         <div class="category">
-            <a href="vyjezd.html">Výjezd Odtahové Služby</a>
+            <a href="vyjezd.html" class="vyjezd"><i class="fas fa-car"></i> Výjezd</a> <!-- Tlačítko pro Výjezd -->
+        </div>
+
+        <div class="category">
+            <a href="dochazka.html" class="dochazka"><i class="fas fa-clipboard-list"></i> Docházka</a> <!-- Tlačítko pro Docházku -->
+        </div>
+
+        <div class="category">
+            <a href="faktury.html" class="faktury"><i class="fas fa-file-invoice-dollar"></i> Faktury</a> <!-- Tlačítko pro Faktury -->
         </div>
     </div>
 </body>
