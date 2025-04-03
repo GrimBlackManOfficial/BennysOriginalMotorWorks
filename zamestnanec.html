@@ -95,8 +95,11 @@
     </div>
 
     <script>
-        // Inicializace Supabase
-        const supabase = supabase.createClient('https://inbigjmfgcwdnpatooun.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImluYmlnam1mZ2N3ZG5wYXRvb3VuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM2MzY4ODUsImV4cCI6MjA1OTIxMjg4NX0.nYFi4JoC3milswnaqcN1qof5P3OgAfs8XoKF1I3WQ-o');
+        // Inicializace Supabase s tvými údaji
+        const supabase = supabase.createClient(
+            'https://inbigjmfgcwdnpatooun.supabase.co', 
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImluYmlnam1mZ2N3ZG5wYXRvb3VuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM2MzY4ODUsImV4cCI6MjA1OTIxMjg4NX0.nYFi4JoC3milswnaqcN1qof5P3OgAfs8XoKF1I3WQ-o'
+        );
 
         // Přihlašovací formulář
         document.getElementById('login-form').addEventListener('submit', async (e) => {
@@ -108,30 +111,33 @@
             // Volání Supabase pro získání uživatele podle uživatelského jména
             const { data, error } = await supabase
                 .from('users')
-                .select('*')
+                .select('username, password')
                 .eq('username', username)
-                .single();  // Vrátí jeden záznam
+                .single();  
 
-            // Pokud dojde k chybě nebo nenalezneme uživatele nebo je heslo špatně
-            if (error) {
-                console.error('Chyba při volání Supabase:', error);
-                alert('Chybné přihlašovací údaje!');
-            } else if (!data) {
-                console.error('Uživatel nebyl nalezen');
-                alert('Chybné přihlašovací údaje!');
-            } else if (data.password !== password) {
-                console.error('Heslo je nesprávné');
+            if (error || !data || data.password !== password) {
                 alert('Chybné přihlašovací údaje!');
             } else {
-                // Pokud přihlášení proběhne úspěšně, skryjeme přihlašovací formulář
-                // a zobrazíme dashboard pro zaměstnance
+                // Uložit stav přihlášení do LocalStorage
+                localStorage.setItem('isLoggedIn', 'true');
+
+                // Skrytí přihlašovacího formuláře a zobrazení dashboardu
                 document.getElementById('login-form-container').style.display = 'none';
                 document.getElementById('employee-dashboard').style.display = 'block';
             }
         });
 
+        // Kontrola přihlášení při načtení stránky
+        window.onload = function () {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                document.getElementById('login-form-container').style.display = 'none';
+                document.getElementById('employee-dashboard').style.display = 'block';
+            }
+        };
+
         // Funkce pro odhlášení
         function logout() {
+            localStorage.removeItem('isLoggedIn');
             document.getElementById('login-form-container').style.display = 'block';
             document.getElementById('employee-dashboard').style.display = 'none';
         }
