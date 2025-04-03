@@ -4,48 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2C2F33;
-            color: white;
-            text-align: center;
-        }
-        .dashboard {
-            padding: 20px;
-            background-color: #23272A;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-        button {
-            padding: 10px;
-            margin: 10px;
-            border-radius: 5px;
-            background-color: #44c767;
-            color: white;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
-    <div class="dashboard">
-        <h1>Admin Dashboard</h1>
-        <button onclick="viewUsers()">Zobrazit uživatele</button>
-        <button onclick="manageRoles()">Spravovat role</button>
-        <button onclick="logout()">Odhlásit se</button>
+    <h2>Admin Dashboard - Schválení uživatelů</h2>
+    <button onclick="loadRegistrations()">Kontrola Registrací</button>
+    <button onclick="loadLogs()">Logy</button>
+
+    <div id="registrations-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Uživatelské jméno</th>
+                    <th>Jméno</th>
+                    <th>Status</th>
+                    <th>Akce</th>
+                </tr>
+            </thead>
+            <tbody id="registrations-tbody">
+                <!-- Dynamicky generované řádky -->
+            </tbody>
+        </table>
     </div>
 
     <script>
-        function viewUsers() {
-            alert('Zobrazit seznam uživatelů.');
+        const supabase = supabase.createClient('https://inbigjmfgcwdnpatooun.supabase.co', 'your-supabase-key');
+
+        async function loadRegistrations() {
+            const { data, error } = await supabase
+                .from('users')
+                .select('*')
+                .eq('is_approved', false);
+
+            if (error) {
+                alert("Chyba při načítání registrací.");
+                return;
+            }
+
+            const tbody = document.getElementById('registrations-tbody');
+            tbody.innerHTML = '';
+            data.forEach(user => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${user.username}</td>
+                    <td>${user.first_name} ${user.last_name}</td>
+                    <td>${user.is_approved ? 'Schváleno' : 'Čeká na schválení'}</td>
+                    <td>
+                        <button onclick="approveRegistration('${user.user_id}')">Schválit</button>
+                        <button onclick="rejectRegistration('${user.user_id}')">Zamítnout</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
         }
 
-        function manageRoles() {
-            alert('Spravovat role uživatelů.');
+        async function approveRegistration(userId) {
+            const { error } = await supabase
+                .from('users')
+                .update({ is_approved: true })
+                .eq('user_id', userId);
+
+            if (error) {
+                alert("Chyba při schvalování uživatele.");
+                return;
+            }
+
+            alert("Uživatel byl schválen.");
+            loadRegistrations();
         }
 
-        function logout() {
-            window.location.href = 'zaměstnanec.html'; // Přesměrování na přihlašovací stránku
+        async function rejectRegistration(userId) {
+            const { error } = await supabase
+                .from('users')
+                .update({ is_approved: false })
+                .eq('user_id', userId);
+
+            if (error) {
+                alert("Chyba při zamítnutí uživatele.");
+                return;
+            }
+
+            alert("Uživatel byl zamítnut.");
+            loadRegistrations();
         }
     </script>
 </body>
