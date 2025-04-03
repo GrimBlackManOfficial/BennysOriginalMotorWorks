@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
         }
@@ -16,24 +16,45 @@
             max-width: 600px;
             margin: 50px auto;
             padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
+            background-color: #fff;
+            border-radius: 10px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
         h2 {
             text-align: center;
         }
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .tabs button {
+            padding: 10px;
+            background-color: #ddd;
+            border: none;
+            flex: 1;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .tabs button.active {
+            background-color: #4CAF50;
+            color: white;
+        }
         .form-container {
             display: none;
+            margin-top: 20px;
+            background-color: #f7f7f7;
             padding: 20px;
-            border-top: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
         .form-container input {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 5px;
         }
         .form-container button {
             width: 100%;
@@ -41,23 +62,11 @@
             background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
         }
         .form-container button:hover {
             background-color: #45a049;
-        }
-        .tabs button {
-            width: 33.3%;
-            padding: 10px;
-            background-color: #f1f1f1;
-            border: 1px solid #ccc;
-            cursor: pointer;
-            text-align: center;
-        }
-        .tabs button.active {
-            background-color: #4CAF50;
-            color: white;
         }
         .dashboard-buttons {
             display: none;
@@ -69,7 +78,7 @@
             background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             margin-top: 10px;
         }
@@ -171,7 +180,7 @@
         function login() {
             const username = document.getElementById("loginUsername").value;
             const password = document.getElementById("loginPassword").value;
-            
+
             // Zde bys měl provést kontrolu s databází, jestli jsou přihlašovací údaje správné
             // Pro tuto ukázku bude stačit přihlášení s pevně daným uživatelským jménem a heslem
             if (username === "zamestnanec" && password === "heslo") {
@@ -179,7 +188,7 @@
                 document.getElementById("loginForm").style.display = "none";
                 document.getElementById("registerForm").style.display = "none";
                 document.getElementById("adminLoginForm").style.display = "none";
-                
+
                 // Zobrazení dashboardu
                 document.getElementById("dashboard").style.display = "block";
                 document.getElementById("userName").innerText = "Jan Novák"; // Zde by bylo jméno uživatele
@@ -196,4 +205,5 @@
             const username = document.getElementById("registerUsername").value;
             const password = document.getElementById("registerPassword").value;
 
-            // Z
+            // Simulace registrace
+            console.log("Registrace prob
