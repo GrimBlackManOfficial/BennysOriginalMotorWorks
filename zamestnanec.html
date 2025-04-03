@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bennys Original Motor Works</title>
+    <title>Bennys Original Motor Works - Zaměstnanec</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,132 +19,144 @@
             color: white;
         }
 
-        /* Loading Screen */
-        #loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.7);
+        .form-container {
+            padding: 20px;
+            background-color: #23272A;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            color: #333;
+        }
+
+        button {
+            display: block;
+            width: 250px;
+            padding: 10px;
+            margin: 10px auto;
+            border: none;
+            border-radius: 5px;
+            background-color: green;
             color: white;
-            z-index: 9999;
-            flex-direction: column;
+            cursor: pointer;
         }
 
-        .loader {
-            border: 16px solid #f3f3f3;
-            border-top: 16px solid #3498db;
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            animation: spin 2s linear infinite;
+        button:hover {
+            background-color: #444;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        #loading-text {
-            margin-top: 20px;
-            font-size: 24px;
-            animation: fadeInOut 1s infinite;
-        }
-
-        @keyframes fadeInOut {
-            0% { opacity: 0; }
-            25% { opacity: 1; }
-            50% { opacity: 0; }
-            75% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        /* Main Content */
-        .container {
+        /* Hidden Content for Employee */
+        .employee-dashboard {
+            display: none;
             text-align: center;
             padding: 20px;
             background-color: #23272A;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            display: none; /* Hidden until loading is complete */
         }
 
-        h1 {
+        .employee-dashboard h1 {
             color: red;
-            font-size: 2em;
-        }
-
-        button {
-            display: block;
-            width: 200px;
-            padding: 10px;
-            margin: 10px auto;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-logout {
-            background-color: blue;
-            color: white;
-        }
-
-        .btn-dashboard {
-            background-color: green;
-            color: white;
-        }
-
-        button:hover {
-            opacity: 0.8;
         }
     </style>
 </head>
 <body>
 
-    <!-- Loading Screen -->
-    <div id="loading">
-        <div class="loader"></div>
-        <span id="loading-text">Načítání systému...</span>
+    <!-- Login Form -->
+    <div class="form-container" id="login-form-container">
+        <h2>Přihlášení</h2>
+        <form id="login-form">
+            <label for="username">Uživatelské jméno:</label><br>
+            <input type="text" id="username" required><br>
+
+            <label for="password">Heslo:</label><br>
+            <input type="password" id="password" required><br>
+
+            <button type="submit">Přihlásit se</button>
+        </form>
     </div>
 
-    <!-- Main Content (hidden initially) -->
-    <div class="container">
+    <!-- Employee Dashboard (hidden initially) -->
+    <div class="employee-dashboard" id="employee-dashboard">
         <h1>Bennys Original Motor Works - Zaměstnanec</h1>
-        <button class="btn-logout" onclick="location.href='index.html'">🔙 Odhlásit</button>
-        <button class="btn-dashboard" onclick="location.href='vyjezd.html'">🚗 Výjezd</button>
+        <p>Vítejte v administraci zaměstnanců!</p>
+        <button onclick="logout()">Odhlásit se</button>
+        <button onclick="openCheckIn()">Přihlásit příchod</button>
+        <button onclick="openCheckOut()">Přihlásit odchod</button>
+        <button onclick="openAttendance()">Docházka</button>
+        <button onclick="openOutings()">Výjezdy</button>
+        <button onclick="openInvoices()">Faktury</button>
     </div>
 
     <script>
-        // Simulate the loading sequence with text changing
-        let loadingText = document.getElementById("loading-text");
-        let loading = document.getElementById("loading");
-        let container = document.querySelector(".container");
+        // Inicializace Supabase
+        const supabase = supabase.createClient('SUPABASE_URL', 'SUPABASE_KEY');
 
-        let texts = [
-            "Načítání systému...",
-            "Získávám data...",
-            "Připojuji do systému..."
-        ];
-        let textIndex = 0;
+        // Přihlašovací formulář
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        function changeText() {
-            loadingText.textContent = texts[textIndex];
-            textIndex++;
-            if (textIndex >= texts.length) {
-                setTimeout(function() {
-                    loading.style.display = 'none'; // Hide loading screen
-                    container.style.display = 'block'; // Show main content
-                }, 1000);
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Volání Supabase pro získání uživatele podle uživatelského jména
+            const { data, error } = await supabase
+                .from('users')
+                .select('*')
+                .eq('username', username)
+                .single();  // Vrátí jeden záznam
+
+            if (error || !data || data.password !== password) {
+                alert('Chybné přihlašovací údaje!');
+            } else {
+                // Skrytí přihlašovacího formuláře a zobrazení panelu pro zaměstnanca
+                document.getElementById('login-form-container').style.display = 'none';
+                document.getElementById('employee-dashboard').style.display = 'block';
             }
+        });
+
+        // Funkce pro odhlášení
+        function logout() {
+            document.getElementById('login-form-container').style.display = 'block';
+            document.getElementById('employee-dashboard').style.display = 'none';
         }
 
-        setInterval(changeText, 2000); // Change text every 2 seconds
+        // Funkce pro přihlášení příchodu
+        function openCheckIn() {
+            alert('Přihlášení příchodu probíhá...');
+            // Zde můžeš přidat kód pro záznam příchodu do databáze
+        }
+
+        // Funkce pro přihlášení odchodu
+        function openCheckOut() {
+            alert('Přihlášení odchodu probíhá...');
+            // Zde můžeš přidat kód pro záznam odchodu do databáze
+        }
+
+        // Funkce pro docházku
+        function openAttendance() {
+            alert('Docházka...');
+            // Zde můžeš přidat kód pro správu docházky
+        }
+
+        // Funkce pro výjezdy
+        function openOutings() {
+            alert('Výjezdy...');
+            // Zde můžeš přidat kód pro správu výjezdů
+        }
+
+        // Funkce pro faktury
+        function openInvoices() {
+            alert('Faktury...');
+            // Zde můžeš přidat kód pro správu faktur
+        }
     </script>
 
 </body>
