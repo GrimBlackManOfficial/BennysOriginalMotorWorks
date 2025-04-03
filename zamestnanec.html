@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bennys Original Motor Works - Zaměstnanec</title>
+    <title>Zaměstnanecký Dashboard Systém</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <style>
         body {
@@ -76,7 +76,7 @@
 
     <!-- Employee Dashboard (hidden initially) -->
     <div class="employee-dashboard" id="employee-dashboard">
-        <h1>Bennys Original Motor Works - Zaměstnanec</h1>
+        <h1>Zaměstnanecký Dashboard Systém</h1>
         <p>Vítejte v administraci zaměstnanců!</p>
         <button onclick="logout()">Odhlásit se</button>
         <button onclick="openCheckIn()">Přihlásit příchod</button>
@@ -95,7 +95,7 @@
             const { user, error } = await supabase.auth.signInWithOAuth({
                 provider: 'discord',
                 options: {
-                    redirectTo: 'https://<tvůj-projekt>.supabase.co/auth/v1/callback'  // Správná URL pro tvůj projekt
+                    redirectTo: 'https://inbigjmfgcwdnpatooun.supabase.co/auth/v1/callback'  // Správná URL pro tvůj projekt
                 }
             });
 
