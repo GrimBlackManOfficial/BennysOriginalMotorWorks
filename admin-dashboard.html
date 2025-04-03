@@ -4,87 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
 <body>
     <h2>Admin Dashboard - Schválení uživatelů</h2>
     <button onclick="loadRegistrations()">Kontrola Registrací</button>
     <button onclick="loadLogs()">Logy</button>
 
-    <div id="registrations-table">
-        <table>
-            <thead>
-                <tr>
-                    <th>Uživatelské jméno</th>
-                    <th>Jméno</th>
-                    <th>Status</th>
-                    <th>Akce</th>
-                </tr>
-            </thead>
-            <tbody id="registrations-tbody">
-                <!-- Dynamicky generované řádky -->
-            </tbody>
-        </table>
-    </div>
+    <h3>Zaměstnanci</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Uživatelské jméno</th>
+                <th>Jméno</th>
+                <th>Rola</th>
+                <th>Akce</th>
+            </tr>
+        </thead>
+        <tbody id="employees-table">
+            <!-- Dynamicky generované řádky -->
+        </tbody>
+    </table>
 
     <script>
         const supabase = supabase.createClient('https://inbigjmfgcwdnpatooun.supabase.co', 'your-supabase-key');
 
+        // Načítání zaměstnanců
         async function loadRegistrations() {
             const { data, error } = await supabase
                 .from('users')
-                .select('*')
-                .eq('is_approved', false);
+                .select('id, username, first_name, last_name, role')
+                .eq('role', 'employee');  // Zobrazí jen zaměstnance
 
             if (error) {
                 alert("Chyba při načítání registrací.");
                 return;
             }
 
-            const tbody = document.getElementById('registrations-tbody');
+            const tbody = document.getElementById('employees-table');
             tbody.innerHTML = '';
             data.forEach(user => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${user.username}</td>
                     <td>${user.first_name} ${user.last_name}</td>
-                    <td>${user.is_approved ? 'Schváleno' : 'Čeká na schválení'}</td>
+                    <td>${user.role}</td>
                     <td>
-                        <button onclick="approveRegistration('${user.user_id}')">Schválit</button>
-                        <button onclick="rejectRegistration('${user.user_id}')">Zamítnout</button>
+                        <button onclick="changeRole('${user.id}', 'admin')">Změnit na Admin</button>
+                        <button onclick="changeRole('${user.id}', 'employee')">Změnit na Zaměstnance</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        async function approveRegistration(userId) {
+        // Změna role uživatele
+        async function changeRole(userId, newRole) {
             const { error } = await supabase
                 .from('users')
-                .update({ is_approved: true })
-                .eq('user_id', userId);
+                .update({ role: newRole })
+                .eq('id', userId);
 
             if (error) {
-                alert("Chyba při schvalování uživatele.");
+                alert("Chyba při změně role.");
                 return;
             }
 
-            alert("Uživatel byl schválen.");
-            loadRegistrations();
+            alert(`Role uživatele byla změněna na ${newRole}.`);
+            loadRegistrations();  // Obnoví seznam uživatelů
         }
 
-        async function rejectRegistration(userId) {
-            const { error } = await supabase
-                .from('users')
-                .update({ is_approved: false })
-                .eq('user_id', userId);
-
-            if (error) {
-                alert("Chyba při zamítnutí uživatele.");
-                return;
-            }
-
-            alert("Uživatel byl zamítnut.");
-            loadRegistrations();
+        // Načítání logů
+        async function loadLogs() {
+            // Implementace pro logy, pokud je potřebuješ
         }
     </script>
 </body>
