@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2C2F33;
+            color: white;
+            text-align: center;
+        }
+        .dashboard {
+            padding: 20px;
+            background-color: #23272A;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        button {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            background-color: #44c767;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h1>Admin Dashboard</h1>
+        <button onclick="viewUsers()">Zobrazit uživatele</button>
+        <button onclick="manageRoles()">Spravovat role</button>
+        <button onclick="logout()">Odhlásit se</button>
+    </div>
+
+    <script>
+        function viewUsers() {
+            alert('Zobrazit seznam uživatelů.');
+        }
+
+        function manageRoles() {
+            alert('Spravovat role uživatelů.');
+        }
+
+        function logout() {
+            window.location.href = 'zaměstnanec.html'; // Přesměrování na přihlašovací stránku
+        }
+    </script>
+</body>
+</html>
