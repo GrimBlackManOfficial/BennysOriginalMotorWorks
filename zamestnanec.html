@@ -113,7 +113,14 @@
                 .single();  // Vrátí jeden záznam
 
             // Pokud dojde k chybě nebo nenalezneme uživatele nebo je heslo špatně
-            if (error || !data || data.password !== password) {
+            if (error) {
+                console.error('Chyba při volání Supabase:', error);
+                alert('Chybné přihlašovací údaje!');
+            } else if (!data) {
+                console.error('Uživatel nebyl nalezen');
+                alert('Chybné přihlašovací údaje!');
+            } else if (data.password !== password) {
+                console.error('Heslo je nesprávné');
                 alert('Chybné přihlašovací údaje!');
             } else {
                 // Pokud přihlášení proběhne úspěšně, skryjeme přihlašovací formulář
