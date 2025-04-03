@@ -27,15 +27,6 @@
             text-align: center;
         }
 
-        input {
-            padding: 10px;
-            margin: 10px;
-            width: 250px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            color: #333;
-        }
-
         button {
             display: block;
             width: 250px;
@@ -66,25 +57,12 @@
         }
     </style>
 </head>
-
-<script src="script.js"></script>
-</body>
-</html>
-    
 <body>
 
-    <!-- Login Form -->
+    <!-- Login Form (Discord OAuth) -->
     <div class="form-container" id="login-form-container">
         <h2>Přihlášení</h2>
-        <form id="login-form">
-            <label for="username">Uživatelské jméno:</label><br>
-            <input type="text" id="username" required><br>
-
-            <label for="password">Heslo:</label><br>
-            <input type="password" id="password" required><br>
-
-            <button type="submit">Přihlásit se</button>
-        </form>
+        <button id="discord-login">Přihlásit se přes Discord</button>
     </div>
 
     <!-- Employee Dashboard (hidden initially) -->
@@ -100,49 +78,49 @@
     </div>
 
     <script>
-        // Inicializace Supabase s tvými údaji
-        const supabase = supabase.createClient(
-            'https://inbigjmfgcwdnpatooun.supabase.co', 
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImluYmlnam1mZ2N3ZG5wYXRvb3VuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM2MzY4ODUsImV4cCI6MjA1OTIxMjg4NX0.nYFi4JoC3milswnaqcN1qof5P3OgAfs8XoKF1I3WQ-o'
-        );
+        // Inicializace Supabase s URL a KEY, které jsi poskytl
+        const supabase = supabase.createClient('https://inbigjmfgcwdnpatooun.supabase.co', 
+                                               'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImluYmlnam1mZ2N3ZG5wYXRvb3VuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM2MzY4ODUsImV4cCI6MjA1OTIxMjg4NX0.nYFi4JoC3milswnaqcN1qof5P3OgAfs8XoKF1I3WQ-o');
 
-        // Přihlašovací formulář
-        document.getElementById('login-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        // Discord login handler
+        document.getElementById('discord-login').addEventListener('click', async () => {
+            // Discord OAuth2 přihlášení
+            const { user, session, error } = await supabase.auth.signInWithOAuth({
+                provider: 'discord',
+            });
 
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+            if (error) {
+                alert('Chyba při přihlašování přes Discord: ' + error.message);
+                return;
+            }
 
-            // Volání Supabase pro získání uživatele podle uživatelského jména
-            const { data, error } = await supabase
-                .from('users')
-                .select('username, password')
-                .eq('username', username)
-                .single();  
+            // Pokud uživatel existuje, můžeme ověřit jeho roli
+            if (user) {
+                // Ověřte role uživatele (Discord Role)
+                const { data: roles, error: rolesError } = await supabase
+                    .from('discord_roles')  // Tabulka, kde máme uloženy role
+                    .select('*')
+                    .eq('user_id', user.id)
+                    .single();
 
-            if (error || !data || data.password !== password) {
-                alert('Chybné přihlašovací údaje!');
-            } else {
-                // Uložit stav přihlášení do LocalStorage
-                localStorage.setItem('isLoggedIn', 'true');
+                if (rolesError || !roles) {
+                    alert('Chyba při načítání rolí.');
+                    return;
+                }
 
-                // Skrytí přihlašovacího formuláře a zobrazení dashboardu
-                document.getElementById('login-form-container').style.display = 'none';
-                document.getElementById('employee-dashboard').style.display = 'block';
+                // Pokud uživatel má roli "zaměstnanec", zobrazíme dashboard
+                if (roles.role === 'zaměstnanec') {
+                    document.getElementById('login-form-container').style.display = 'none';
+                    document.getElementById('employee-dashboard').style.display = 'block';
+                } else {
+                    alert('Nemáte oprávnění k přihlášení!');
+                }
             }
         });
 
-        // Kontrola přihlášení při načtení stránky
-        window.onload = function () {
-            if (localStorage.getItem('isLoggedIn') === 'true') {
-                document.getElementById('login-form-container').style.display = 'none';
-                document.getElementById('employee-dashboard').style.display = 'block';
-            }
-        };
-
         // Funkce pro odhlášení
         function logout() {
-            localStorage.removeItem('isLoggedIn');
+            supabase.auth.signOut();
             document.getElementById('login-form-container').style.display = 'block';
             document.getElementById('employee-dashboard').style.display = 'none';
         }
