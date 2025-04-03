@@ -3,188 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bennys Original Motor Works - Přihlášení/Registrace</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <title>Zaměstnanecký systém</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #2C2F33;
-            color: white;
+            background-color: #f4f4f4;
         }
-        .form-container {
+
+        .container {
+            width: 400px;
             padding: 20px;
-            background-color: #23272A;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
             text-align: center;
+            margin-bottom: 20px;
         }
+
         input {
+            width: 100%;
             padding: 10px;
-            margin: 10px;
-            width: 250px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
             border-radius: 5px;
-            border: 1px solid #ccc;
-            color: #333;
         }
+
         button {
-            display: block;
-            width: 250px;
+            width: 100%;
             padding: 10px;
-            margin: 10px auto;
+            background-color: #333;
+            color: white;
             border: none;
             border-radius: 5px;
-            background-color: green;
-            color: white;
             cursor: pointer;
         }
+
         button:hover {
-            background-color: #444;
+            background-color: #555;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+        }
+
+        .option-btn {
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Form for login, registration, and admin login -->
-    <div class="form-container" id="auth-form-container">
-        <h2>Vyberte akci</h2>
+    <div class="container">
+        <h2>Registrace / Přihlášení</h2>
 
-        <!-- Přihlášení -->
-        <button onclick="showLoginForm()">Přihlásit se</button>
-        <button onclick="showRegisterForm()">Registrovat se</button>
-        <button onclick="showAdminLoginForm()">Přihlášení jako vedení</button>
-    </div>
+        <!-- Registrace pro zaměstnanca -->
+        <div id="register-section">
+            <h3>Registrace</h3>
+            <form id="register-form">
+                <input type="text" id="first_name" placeholder="Jméno" required>
+                <input type="text" id="last_name" placeholder="Příjmení" required>
+                <input type="text" id="employee_number" placeholder="Zaměstnanecké číslo" required>
+                <input type="text" id="username" placeholder="Uživatelské jméno" required>
+                <input type="password" id="password" placeholder="Heslo" required>
+                <button type="submit">Registrovat</button>
+            </form>
+        </div>
 
-    <!-- Login Form -->
-    <div class="form-container" id="login-form-container" style="display:none;">
-        <h2>Přihlášení</h2>
-        <form id="login-form">
-            <label for="login-username">Uživatelské jméno:</label><br>
-            <input type="text" id="login-username" required><br>
+        <!-- Přihlášení pro zaměstnanca -->
+        <div id="login-section">
+            <h3>Již máte účet?</h3>
+            <form id="login-form">
+                <input type="text" id="login-username" placeholder="Uživatelské jméno" required>
+                <input type="password" id="login-password" placeholder="Heslo" required>
+                <button type="submit">Přihlásit se</button>
+            </form>
+        </div>
 
-            <label for="login-password">Heslo:</label><br>
-            <input type="password" id="login-password" required><br>
+        <!-- Přihlášení pro vedení -->
+        <div id="admin-login-section">
+            <h3>Vedení přihlášení</h3>
+            <form id="admin-login-form">
+                <input type="text" id="admin-username" placeholder="Uživatelské jméno" required>
+                <input type="password" id="admin-password" placeholder="Heslo" required>
+                <button type="submit">Přihlásit se do vedení</button>
+            </form>
+        </div>
 
-            <button type="submit">Přihlásit se</button>
-        </form>
-    </div>
-
-    <!-- Register Form -->
-    <div class="form-container" id="register-form-container" style="display:none;">
-        <h2>Registrace</h2>
-        <form id="register-form">
-            <label for="register-username">Uživatelské jméno:</label><br>
-            <input type="text" id="register-username" required><br>
-
-            <label for="register-password">Heslo:</label><br>
-            <input type="password" id="register-password" required><br>
-
-            <button type="submit">Registrovat se</button>
-        </form>
-    </div>
-
-    <!-- Admin Login Form -->
-    <div class="form-container" id="admin-login-form-container" style="display:none;">
-        <h2>Přihlášení jako vedení</h2>
-        <form id="admin-login-form">
-            <label for="admin-username">Uživatelské jméno:</label><br>
-            <input type="text" id="admin-username" required><br>
-
-            <label for="admin-password">Heslo:</label><br>
-            <input type="password" id="admin-password" required><br>
-
-            <button type="submit">Přihlásit se</button>
-        </form>
+        <div class="option-btn">
+            <button id="admin-login" onclick="adminLogin()">Vedení přihlášení</button>
+        </div>
     </div>
 
     <script>
-        // Inicializace Supabase
-        const supabase = supabase.createClient('https://inbigjmfgcwdnpatooun.supabase.co', 'YOUR_SUPABASE_API_KEY');
+        const supabase = supabase.createClient('https://inbigjmfgcwdnpatooun.supabase.co', 'your-supabase-key');
 
-        // Funkce pro zobrazení přihlašovacího formuláře
-        function showLoginForm() {
-            document.getElementById('auth-form-container').style.display = 'none';
-            document.getElementById('login-form-container').style.display = 'block';
-        }
+        // Registrace zaměstnanců
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        // Funkce pro zobrazení registračního formuláře
-        function showRegisterForm() {
-            document.getElementById('auth-form-container').style.display = 'none';
-            document.getElementById('register-form-container').style.display = 'block';
-        }
+            const firstName = document.getElementById('first_name').value;
+            const lastName = document.getElementById('last_name').value;
+            const employeeNumber = document.getElementById('employee_number').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-        // Funkce pro zobrazení administrátorského přihlášení
-        function showAdminLoginForm() {
-            document.getElementById('auth-form-container').style.display = 'none';
-            document.getElementById('admin-login-form-container').style.display = 'block';
-        }
+            const { user, error } = await supabase.auth.signUp({
+                email: username,
+                password: password,
+            });
 
-        // Login - Odeslání formuláře pro přihlášení
+            if (error) {
+                alert("Chyba při registraci: " + error.message);
+                return;
+            }
+
+            const { error: insertError } = await supabase
+                .from('users')
+                .insert([{
+                    user_id: user.id,
+                    first_name: firstName,
+                    last_name: lastName,
+                    employee_number: employeeNumber,
+                    username: username,
+                    is_approved: false,
+                }]);
+
+            if (insertError) {
+                alert("Chyba při uložení údajů: " + insertError.message);
+                return;
+            }
+
+            alert('Registrace probíhla úspěšně! Čeká na schválení administrátorem.');
+            window.location.href = 'login.html';
+        });
+
+        // Přihlášení zaměstnanců
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
+
             const username = document.getElementById('login-username').value;
             const password = document.getElementById('login-password').value;
 
-            // Získání uživatele z databáze
-            const { data, error } = await supabase
-                .from('users')
-                .select('*')
-                .eq('username', username)
-                .single();
-
-            if (error || !data || data.password !== password) {
-                alert('Chybné přihlašovací údaje!');
-            } else {
-                alert('Přihlášení úspěšné');
-                window.location.href = 'employee-dashboard.html'; // Přesměrování na dashboard pro zaměstnanca
-            }
-        });
-
-        // Register - Odeslání registračního formuláře
-        document.getElementById('register-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('register-username').value;
-            const password = document.getElementById('register-password').value;
-
-            // Registrace uživatele
-            const { data, error } = await supabase
-                .from('users')
-                .insert([{ username: username, password: password }]);
+            const { user, error } = await supabase.auth.signInWithPassword({
+                email: username,
+                password: password,
+            });
 
             if (error) {
-                alert('Chyba při registraci');
-            } else {
-                alert('Registrace úspěšná');
-                window.location.href = 'employee-dashboard.html'; // Přesměrování na dashboard pro zaměstnanca
+                alert("Chyba při přihlášení: " + error.message);
+                return;
             }
-        });
 
-        // Admin Login - Odeslání formuláře pro přihlášení jako admin
-        document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('admin-username').value;
-            const password = document.getElementById('admin-password').value;
-
-            // Získání uživatele z databáze
-            const { data, error } = await supabase
+            const { data, error: userError } = await supabase
                 .from('users')
-                .select('*')
-                .eq('username', username)
+                .select('is_approved')
+                .eq('user_id', user.id)
                 .single();
 
-            if (error || !data || data.password !== password || data.role !== 'admin') {
-                alert('Chybné přihlašovací údaje nebo nemáte oprávnění!');
-            } else {
-                alert('Přihlášení jako admin úspěšné');
-                window.location.href = 'admin-dashboard.html'; // Přesměrování na dashboard pro admina
+            if (userError) {
+                alert("Chyba při ověřování uživatele.");
+                return;
             }
+
+            if (data.is_approved === false) {
+                alert("Vaše registrace čeká na schválení administrátorem.");
+                return;
+            }
+
+            window.location.href = 'dashboard.html';
         });
+
+        // Přihlášení pro vedení
+        function adminLogin() {
+            window.location.href = 'admin-dashboard.html';
+        }
     </script>
+
 </body>
 </html>
