@@ -27,6 +27,15 @@
             text-align: center;
         }
 
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            color: #333;
+        }
+
         button {
             display: block;
             width: 250px;
@@ -59,10 +68,10 @@
 </head>
 <body>
 
-    <!-- Login Form (Discord OAuth) -->
+    <!-- Login Form -->
     <div class="form-container" id="login-form-container">
         <h2>Přihlášení</h2>
-        <button id="discord-login">Přihlásit se přes Discord</button>
+        <button id="discord-login-btn">Přihlásit se přes Discord</button>
     </div>
 
     <!-- Employee Dashboard (hidden initially) -->
@@ -78,51 +87,34 @@
     </div>
 
     <script>
-        // Inicializace Supabase s URL a KEY, které jsi poskytl
-        const supabase = supabase.createClient('https://inbigjmfgcwdnpatooun.supabase.co', 
-                                               'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImluYmlnam1mZ2N3ZG5wYXRvb3VuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM2MzY4ODUsImV4cCI6MjA1OTIxMjg4NX0.nYFi4JoC3milswnaqcN1qof5P3OgAfs8XoKF1I3WQ-o');
+        // Inicializace Supabase
+        const supabase = supabase.createClient('https://inbigjmfgcwdnpatooun.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImluYmlnam1mZ2N3ZG5wYXRvb3VuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM2MzY4ODUsImV4cCI6MjA1OTIxMjg4NX0.nYFi4JoC3milswnaqcN1qof5P3OgAfs8XoKF1I3WQ-o');
 
-        // Discord login handler
-        document.getElementById('discord-login').addEventListener('click', async () => {
-            // Discord OAuth2 přihlášení
-            const { user, session, error } = await supabase.auth.signInWithOAuth({
+        // Přihlašování přes Discord
+        document.getElementById('discord-login-btn').addEventListener('click', async () => {
+            const { user, error } = await supabase.auth.signInWithOAuth({
                 provider: 'discord',
+                options: {
+                    redirectTo: 'https://<tvůj-projekt>.supabase.co/auth/v1/callback'  // Správná URL pro tvůj projekt
+                }
             });
 
             if (error) {
-                alert('Chyba při přihlašování přes Discord: ' + error.message);
-                return;
-            }
-
-            // Pokud uživatel existuje, můžeme ověřit jeho roli
-            if (user) {
-                // Ověřte role uživatele (Discord Role)
-                const { data: roles, error: rolesError } = await supabase
-                    .from('discord_roles')  // Tabulka, kde máme uloženy role
-                    .select('*')
-                    .eq('user_id', user.id)
-                    .single();
-
-                if (rolesError || !roles) {
-                    alert('Chyba při načítání rolí.');
-                    return;
-                }
-
-                // Pokud uživatel má roli "zaměstnanec", zobrazíme dashboard
-                if (roles.role === 'zaměstnanec') {
-                    document.getElementById('login-form-container').style.display = 'none';
-                    document.getElementById('employee-dashboard').style.display = 'block';
-                } else {
-                    alert('Nemáte oprávnění k přihlášení!');
-                }
+                alert('Chyba při přihlašování přes Discord!');
+            } else {
+                // Pokud přihlášení proběhne úspěšně, skryjeme přihlašovací formulář
+                // a zobrazíme dashboard pro zaměstnance
+                document.getElementById('login-form-container').style.display = 'none';
+                document.getElementById('employee-dashboard').style.display = 'block';
             }
         });
 
         // Funkce pro odhlášení
         function logout() {
-            supabase.auth.signOut();
-            document.getElementById('login-form-container').style.display = 'block';
-            document.getElementById('employee-dashboard').style.display = 'none';
+            supabase.auth.signOut().then(() => {
+                document.getElementById('login-form-container').style.display = 'block';
+                document.getElementById('employee-dashboard').style.display = 'none';
+            });
         }
 
         // Funkce pro přihlášení příchodu
