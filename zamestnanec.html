@@ -52,7 +52,6 @@
             background-color: #444;
         }
 
-        /* Hidden Content for Employee */
         .employee-dashboard {
             display: none;
             text-align: center;
@@ -113,10 +112,12 @@
                 .eq('username', username)
                 .single();  // Vrátí jeden záznam
 
+            // Pokud dojde k chybě nebo nenalezneme uživatele nebo je heslo špatně
             if (error || !data || data.password !== password) {
                 alert('Chybné přihlašovací údaje!');
             } else {
-                // Skrytí přihlašovacího formuláře a zobrazení panelu pro zaměstnanca
+                // Pokud přihlášení proběhne úspěšně, skryjeme přihlašovací formulář
+                // a zobrazíme dashboard pro zaměstnance
                 document.getElementById('login-form-container').style.display = 'none';
                 document.getElementById('employee-dashboard').style.display = 'block';
             }
@@ -131,31 +132,26 @@
         // Funkce pro přihlášení příchodu
         function openCheckIn() {
             alert('Přihlášení příchodu probíhá...');
-            // Zde můžeš přidat kód pro záznam příchodu do databáze
         }
 
         // Funkce pro přihlášení odchodu
         function openCheckOut() {
             alert('Přihlášení odchodu probíhá...');
-            // Zde můžeš přidat kód pro záznam odchodu do databáze
         }
 
         // Funkce pro docházku
         function openAttendance() {
             alert('Docházka...');
-            // Zde můžeš přidat kód pro správu docházky
         }
 
         // Funkce pro výjezdy
         function openOutings() {
             alert('Výjezdy...');
-            // Zde můžeš přidat kód pro správu výjezdů
         }
 
         // Funkce pro faktury
         function openInvoices() {
             alert('Faktury...');
-            // Zde můžeš přidat kód pro správu faktur
         }
     </script>
 
